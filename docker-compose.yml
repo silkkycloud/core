@@ -22,10 +22,10 @@ services:
           - "node.labels.proxy == true"
       resources:
         limits:
-          cpus: 8
+          cpus: "8"
           memory: 6G
         reservations:
-          cpus: 1
+          cpus: "1"
           memory: 1G
     volumes:
       - caddy_data:/data
@@ -51,10 +51,10 @@ services:
           - "node.role == manager"
       resources:
         limits:
-          cpus: 2
+          cpus: "2"
           memory: 1.5G
         reservations:
-          cpus: 0.5
+          cpus: "0.5"
           memory: 500M
     volumes:
       - portainer_data:/data
@@ -70,10 +70,10 @@ services:
           - "node.role == manager"
       resources:
         limits:
-          cpus: 1
+          cpus: "1"
           memory: 1G
         reservations:
-          cpus: 0.3
+          cpus: "0.3"
           memory: 256M
 
 networks:

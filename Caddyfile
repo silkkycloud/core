@@ -1,5 +1,5 @@
-test-caddy.silkky.cloud
+test-caddy.silkky.cloud {
+	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
 
-tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
-
-respond "Hello, world!"
+	respond "Hello, world!"
+}

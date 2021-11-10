@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   caddy:
-    image: ghcr.io/silkkycloud/caddy:latest
+    image: ghcr.io/silkkycloud/core-caddy:latest
     hostname: caddy
     networks:
       - public

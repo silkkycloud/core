@@ -45,6 +45,6 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/silkkycloud/caddy:latest
+          tags: ghcr.io/silkkycloud/core-caddy:latest
           cache-from: type=local,src=cache
           cache-to: type=local,dest=cache

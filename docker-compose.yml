@@ -28,8 +28,6 @@ services:
           cpus: "1"
           memory: 1G
     volumes:
-      - caddy_data:/data
-      - caddy_config:/config
       - caddy_tls:/tls
 
 networks:
@@ -38,8 +36,6 @@ networks:
     external: true
 
 volumes:
-  caddy_data:
-  caddy_config:
   # Needed for Cloudflare origin certificates
   # Create: docker volume create caddy_tls
   caddy_tls:

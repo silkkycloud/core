@@ -5,8 +5,7 @@ FROM caddy:2-builder-alpine AS builder
 
 RUN xcaddy build \
     --with github.com/greenpau/caddy-auth-portal \
-    --with github.com/greenpau/caddy-authorize \
-    --with github.com/mastercactapus/caddy-proxyprotocol
+    --with github.com/greenpau/caddy-authorize
 
 ####################################################################################################
 ## Final image

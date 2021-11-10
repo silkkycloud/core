@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - "**.md"
     branches:
-      - main
+      - master
   schedule:
     - cron: "0 12 * * 1"
 

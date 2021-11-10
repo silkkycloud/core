@@ -30,7 +30,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Get hash of latest image
-        run: docker pull caddy:2-alpine && docker inspect --format='{{index .RepoDigests 0}}' caddy:2-alpine > dockerhash.txt
+        run: docker pull caddy:2-builder-alpine && docker inspect --format='{{index .RepoDigests 0}}' caddy:2-builder-alpine > dockerhash.txt
       - name: cache docker cache
         uses: actions/cache@v2.1.6
         with:

@@ -11,6 +11,8 @@ RUN xcaddy build \
 ####################################################################################################
 FROM caddy:2-alpine
 
-COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+# Directory for origin certificates
+RUN mkdir -p /tls/
 
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 COPY ./Caddy/. /etc/caddy/.

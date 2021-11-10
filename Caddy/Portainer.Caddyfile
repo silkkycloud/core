@@ -1,0 +1,14 @@
+portainer.silkky.cloud {
+	import default
+
+	handle @cloudflare-ips {
+		authp {
+			
+		}
+		reverse_proxy {
+			
+		}
+	}
+
+	respond "You are attempting to access protected resources." 403
+}

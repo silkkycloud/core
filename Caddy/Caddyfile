@@ -3,3 +3,5 @@ test-caddy.silkky.cloud {
 
 	respond "Hello, world!"
 }
+
+import ./test.caddy

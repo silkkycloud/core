@@ -31,9 +31,6 @@ services:
       - caddy_data:/data
       - caddy_config:/config
       - caddy_tls:/tls
-    configs:
-      - source: caddyfile
-        target: /etc/caddy/Caddyfile
 
 networks:
   # Create: docker network create --subnet 10.10.0.0/16 -d overlay public
@@ -47,7 +44,3 @@ volumes:
   # Create: docker volume create caddy_tls
   caddy_tls:
     external: true
-
-configs:
-  caddyfile:
-    file: ./Caddyfile

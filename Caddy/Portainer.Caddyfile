@@ -1,14 +1,29 @@
-portainer.silkky.cloud {
+admin.silkky.cloud {
 	import default
 
-	handle @cloudflare-ips {
+	route /auth* {
 		authp {
-			
-		}
-		reverse_proxy {
-			
+			backends {
+				github_oauth2_backend {
+					method oauth2
+					realm github
+					provider github
+					client_id {env.GITHUB_CLIENT_ID}
+					client_secret {env.GITHUB_CLIENT_SECRET}
+					scopes user
+					user github.com/TheSilkky add role superuser
+				}
+			}
+
 		}
 	}
 
-	respond "You are attempting to access protected resources." 403
+	route /portainer* {
+		authorize {
+			set auth url /auth
+			allow roles authp/superuser 
+		}
+		uri strip_prefix /portainer
+		reverse_proxy portainer:9000
+	}
 }

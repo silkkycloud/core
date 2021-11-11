@@ -1,14 +1,3 @@
-#{
-#	servers {
-#		listener_wrappers {
-#			proxy_protocol {
-#				timeout 5s
-#				allow 10.0.0.2
-#			}
-#		}
-#	}
-#}
-
 (default) {
 	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
 
@@ -26,24 +15,6 @@
 	}
 }
 
-#auth.silkky.cloud {
-#	route /auth* {
-#		authp {
-#			backends {
-#				github_oauth2_backend {
-#					method oauth2
-#					realm github
-#					provider github
-#					client_id
-#					client_secret
-#					scopes user
-#				}
-#			}
-#
-#		}
-#	}
-#}
-
 # Enabled sites
-#import ./Portainer.Caddyfile
+import ./Portainer.Caddyfile
 import ./Test.Caddyfile

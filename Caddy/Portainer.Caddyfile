@@ -11,17 +11,17 @@ admin.silkky.cloud {
 					client_id {env.GITHUB_CLIENT_ID}
 					client_secret {env.GITHUB_CLIENT_SECRET}
 					scopes user
-					user github.com/TheSilkky add role superuser
+
+					user github.com/TheSilkky add role superadmin
 				}
 			}
-
 		}
 	}
 
 	route /portainer* {
 		authorize {
 			set auth url /auth
-			allow roles authp/superuser 
+			allow roles superadmin
 		}
 		uri strip_prefix /portainer
 		reverse_proxy portainer:9000

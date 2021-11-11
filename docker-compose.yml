@@ -22,11 +22,11 @@ services:
           - "node.labels.proxy == true"
       resources:
         limits:
-          cpus: '8'
-          memory: '6G'
+          cpus: '8.0'
+          memory: 6G
         reservations:
-          cpus: '1'
-          memory: '1G'
+          cpus: '1.0'
+          memory: 1G
     volumes:
       - caddy_tls:/tls
     environment:

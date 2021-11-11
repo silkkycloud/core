@@ -29,6 +29,9 @@ services:
           memory: 1G
     volumes:
       - caddy_tls:/tls
+    environment:
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
 
 networks:
   # Create: docker network create --subnet 10.10.0.0/16 -d overlay public

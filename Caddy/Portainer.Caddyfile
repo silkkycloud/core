@@ -11,9 +11,11 @@ admin.silkky.cloud {
 					client_id {env.GITHUB_CLIENT_ID}
 					client_secret {env.GITHUB_CLIENT_SECRET}
 					scopes user
-
-					user github.com/TheSilkky add role superadmin
 				}
+			}
+			transform user {
+				exact match sub github.com/TheSilkky
+				action add role superadmin
 			}
 		}
 	}

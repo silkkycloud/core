@@ -26,7 +26,6 @@ services:
   portainer:
     image: portainer/portainer-ce:2.9.2-alpine
     command: -H tcp://tasks.agent:9001 --tlsskipverify
-    hostname: portainer
     networks:
       - agent_net
       - public

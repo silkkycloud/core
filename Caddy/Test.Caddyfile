@@ -1,5 +1,0 @@
-test-caddy.silkky.cloud {
-	import default
-
-	respond "Hello, world!"
-}

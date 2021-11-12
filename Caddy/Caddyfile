@@ -1,4 +1,4 @@
-(default) {
+(secureheader) {
 	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
 
 	header {
@@ -17,4 +17,3 @@
 
 # Enabled sites
 import ./Admin.Caddyfile
-import ./Test.Caddyfile

@@ -2,7 +2,7 @@
 	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
 
 	header {
-		#Strict-Transport-Security max-age=31536000; includeSubDomains; preload
+		Strict-Transport-Security max-age=31536000; includeSubDomains; preload
 		X-XSS-Protection 1; mode=block
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin

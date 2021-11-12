@@ -4,16 +4,7 @@ admin.silkky.cloud {
 	route /auth* {
 		authp {
 			cookie domain silkky.cloud
-			backends {
-				github_oauth2_backend {
-					method oauth2
-					realm github
-					provider github
-					client_id {env.GITHUB_CLIENT_ID}
-					client_secret {env.GITHUB_CLIENT_SECRET}
-					scopes user
-				}
-			}
+			backend github {env.GITHUB_CLIENT_ID} {env.GITHUB_CLIENT_SECRET}
 			transform user {
 				exact match sub github.com/TheSilkky
 				action add role authp/admin
@@ -24,7 +15,7 @@ admin.silkky.cloud {
 }
 
 portainer.silkky.cloud {
-	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
+	import default
 
 	route {
 		authorize {

@@ -1,4 +1,4 @@
-libreddit-test.silkky.cloud {
+libreddit.silkky.cloud {
 	import secureheader
 
 	reverse_proxy http://libreddit:8080

@@ -3,7 +3,8 @@ version: '3.8'
 services:
 
   agent:
-    image: portainer/agent:2.10.0-alpine
+    image: portainer/agent:2.10.0-alpine]
+    hostname: agent
     networks:
       - agent_net
     deploy:
@@ -25,7 +26,8 @@ services:
 
   portainer:
     image: portainer/portainer-ce:2.9.2-alpine
-    command: -H tcp://tasks.agent:9001 --tlsskipverify
+    hostname: portainer
+    command: -H tcp://agent:9001 --tlsskipverify
     networks:
       - agent_net
       - public

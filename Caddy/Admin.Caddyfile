@@ -1,4 +1,4 @@
-auth.silkky.cloud {
+admin.silkky.cloud {
 	import default
 
 	route /auth* {

@@ -16,5 +16,5 @@
 }
 
 # Enabled sites
-import ./Portainer.Caddyfile
+import ./Admin.Caddyfile
 import ./Test.Caddyfile

@@ -23,7 +23,7 @@ admin.silkky.cloud {
 }
 
 portainer.silkky.cloud {
-	import default
+	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
 
 	route {
 		authorize {

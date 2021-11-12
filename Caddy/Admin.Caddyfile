@@ -37,6 +37,7 @@ portainer.silkky.cloud {
 
 	route {
 		authorize {
+			primary yes
 			set auth url https://admin.silkky.cloud/auth
 			allow roles superadmin
 		}

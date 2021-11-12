@@ -20,16 +20,6 @@ admin.silkky.cloud {
 			}
 		}
 	}
-
-	route /test* {
-		authorize {
-			primary yes
-			set auth url /auth
-			allow roles superadmin
-		}
-
-		respond "Hello, world!" 200
-	}
 }
 
 portainer.silkky.cloud {

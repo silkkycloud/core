@@ -21,13 +21,24 @@ admin.silkky.cloud {
 		}
 	}
 
-	route /portainer* {
-		authorize {
-			set auth url /auth
-			allow roles superadmin
-		}
+	#route /portainer* {
+	#	authorize {
+	#		set auth url /auth
+	#		allow roles superadmin
+	#	}
+	#
+	#	uri strip_prefix /portainer
+	#	reverse_proxy http://portainer:9000
+	#}
+}
 
-		uri strip_prefix /portainer
-		reverse_proxy http://portainer:9000
+portainer.silkky.cloud {
+	import default
+
+	authorize {
+		set auth url admin.silkky.cloud/auth
+		allow roles superadmin
 	}
+
+	reverse_proxy http://portainer:9000
 }

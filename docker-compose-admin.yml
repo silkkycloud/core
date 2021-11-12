@@ -14,11 +14,11 @@ services:
           - "node.role == manager"
       resources:
         limits:
-          cpus: '2'
-          memory: 2G
+          cpus: '1'
+          memory: 1G
         reservations:
           cpus: '0.25'
-          memory: 512M
+          memory: 256M
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -39,11 +39,11 @@ services:
           - "node.hostname == main-1"
       resources:
         limits:
-          cpus: '4'
-          memory: 4G
+          cpus: '2'
+          memory: 2G
         reservations:
           cpus: '1'
-          memory: 1.5G
+          memory: 1G
     volumes:
       - portainer_data:/data
 

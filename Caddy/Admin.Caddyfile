@@ -3,6 +3,7 @@ admin.silkky.cloud {
 
 	route /auth* {
 		authp {
+			cookie domain silkky.cloud
 			backends {
 				github_oauth2_backend {
 					method oauth2

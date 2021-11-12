@@ -16,7 +16,7 @@ admin.silkky.cloud {
 			transform user {
 				exact match sub github.com/TheSilkky
 				action add role superadmin
-				ui link "Portainer" /portainer
+				ui link "Portainer" https://portainer.silkky.cloud
 			}
 		}
 	}

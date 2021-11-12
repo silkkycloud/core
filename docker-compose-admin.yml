@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   agent:
-    image: portainer/agent:2.10.0-alpine]
+    image: portainer/agent:2.10.0-alpine
     hostname: agent
     networks:
       - agent_net

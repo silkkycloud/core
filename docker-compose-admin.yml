@@ -4,7 +4,6 @@ services:
 
   agent:
     image: portainer/agent:2.10.0-alpine
-    hostname: tasks.agent
     networks:
       - agent_net
     deploy:

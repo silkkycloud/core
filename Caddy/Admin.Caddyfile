@@ -15,7 +15,7 @@ admin.silkky.cloud {
 			}
 			transform user {
 				exact match sub github.com/TheSilkky
-				action add role superadmin
+				action add role authp/admin
 				ui link "Portainer" https://portainer.silkky.cloud
 			}
 		}
@@ -29,7 +29,7 @@ portainer.silkky.cloud {
 		authorize {
 			primary yes
 			set auth url https://admin.silkky.cloud/auth
-			allow roles superadmin
+			allow roles authp/admin
 		}
 
 		reverse_proxy http://portainer:9000

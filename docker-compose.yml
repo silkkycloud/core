@@ -23,6 +23,7 @@ services:
     volumes:
       - caddy_tls:/tls
     environment:
+      # OAuth for administrator applications
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
       - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
 

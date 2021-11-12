@@ -35,5 +35,12 @@ admin.silkky.cloud {
 portainer.silkky.cloud {
 	import default
 
-	reverse_proxy http://portainer:9000
+	route {
+		authorize {
+			set auth url https://admin.silkky.cloud/auth
+			allow roles superadmin
+		}
+
+		reverse_proxy http://portainer:9000
+	}
 }

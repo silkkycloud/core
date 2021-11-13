@@ -8,21 +8,10 @@ admin.silkky.cloud {
 			transform user {
 				exact match sub github.com/TheSilkky
 				action add role authp/admin
-				ui link "Portainer" /portainer
+				ui link "Portainer" https://portainer.silkky.cloud
 				ui link "Prometheus" /prometheus
 			}
 		}
-	}
-
-	route /portainer* {
-		authorize {
-			primary yes
-			set auth url /auth
-			allow roles authp/admin
-		}
-
-		uri strip_prefix /portainer
-		reverse_proxy http://portainer:9000
 	}
 
 	route /prometheus* {
@@ -33,5 +22,19 @@ admin.silkky.cloud {
 
 		uri strip_prefix /prometheus
 		reverse_proxy http://prometheus:9090
+	}
+}
+
+portainer.silkky.cloud {
+	import secureheader
+
+	route {
+		authorize {
+			primary yes
+			set auth url https://admin.silkky.cloud/auth
+			allow roles authp/admin
+		}
+
+		reverse_proxy http://portainer:9000
 	}
 }

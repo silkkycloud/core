@@ -21,7 +21,7 @@ admin.silkky.cloud {
 		}
 
 		uri strip_prefix /prometheus
-		reverse_proxy http://prometheus:9080
+		reverse_proxy http://prometheus:9090
 	}
 }
 

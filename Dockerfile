@@ -16,4 +16,6 @@ FROM caddy:2-alpine
 RUN mkdir -p /tls/
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
+# Copy Caddy configuration
 COPY ./Caddy/. /etc/caddy/.

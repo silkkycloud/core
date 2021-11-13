@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+
+  prometheus:
+    image: quay.io/prometheus/prometheus:v2.31.1
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    hostname: prometheus
+    networks:
+      - public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - "node.role == manager"
+          - "node.hostname == main-1"
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    volumes:
+      - prometheus-data:/prometheus
+      - ./Prometheus:/etc/prometheus
+  
+networks:
+  public:
+    external: true
+
+volumes:
+  prometheus-data:

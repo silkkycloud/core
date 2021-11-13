@@ -4,7 +4,7 @@ services:
 
   prometheus:
     image: quay.io/prometheus/prometheus:v2.31.1
-    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
     hostname: prometheus
     networks:
       - public

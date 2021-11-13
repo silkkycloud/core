@@ -17,7 +17,7 @@ admin.silkky.cloud {
 	route /portainer* {
 		authorize {
 			primary yes
-			set auth url https://admin.silkky.cloud/auth
+			set auth url /auth
 			allow roles authp/admin
 		}
 

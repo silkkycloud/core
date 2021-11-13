@@ -21,6 +21,7 @@ admin.silkky.cloud {
 			allow roles authp/admin
 		}
 
+		uri strip_prefix /portainer
 		reverse_proxy http://portainer:9000
 	}
 

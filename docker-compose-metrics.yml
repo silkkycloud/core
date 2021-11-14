@@ -2,9 +2,33 @@ version: '3.8'
 
 services:
 
+  grafana:
+    image: grafana/grafana:8.2.3
+    hostname: grafana
+    networks:
+      - metrics_net
+      - public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - "node.role == manager"
+          - "node.hostname == main-1"
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./Grafana:/etc/grafana
+
   prometheus:
     image: quay.io/prometheus/prometheus:v2.31.1
-    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+    command: --web.enable-lifecycle --web.external-url=/prometheus/ --config.file=/etc/prometheus/prometheus.yml
     hostname: prometheus
     networks:
       - metrics_net
@@ -24,7 +48,7 @@ services:
           cpus: '0.25'
           memory: 256M
     volumes:
-      - prometheus-data:/prometheus
+      - prometheus_data:/prometheus
       - ./Prometheus:/etc/prometheus
       # Needed to discover targets in Swarm cluster
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -61,4 +85,5 @@ networks:
     driver: overlay
 
 volumes:
-  prometheus-data:
+  prometheus_data:
+  grafana_data:

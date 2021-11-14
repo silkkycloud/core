@@ -7,6 +7,7 @@ services:
     command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
     hostname: prometheus
     networks:
+      - metrics_net
       - public
     deploy:
       mode: replicated
@@ -27,10 +28,37 @@ services:
       - ./Prometheus:/etc/prometheus
       # Needed to discover targets in Swarm cluster
       - /var/run/docker.sock:/var/run/docker.sock:ro
-  
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    hostname: cadvisor
+    networks:
+      - metrics_net
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+          - "node.role == manager"
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
 networks:
-  public:
+  public: 
     external: true
+
+  metrics_net:
+    driver: overlay
 
 volumes:
   prometheus-data:

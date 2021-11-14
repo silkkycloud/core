@@ -32,6 +32,10 @@ admin.silkky.cloud {
 
 		reverse_proxy http://prometheus:9090
 	}
+
+	route {
+		redir https://admin.silkky.cloud/auth 302
+	}
 }
 
 portainer.silkky.cloud {

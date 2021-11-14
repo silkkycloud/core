@@ -25,6 +25,8 @@ services:
     volumes:
       - prometheus-data:/prometheus
       - ./Prometheus:/etc/prometheus
+      # Needed to discover targets in Swarm cluster
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   
 networks:
   public:

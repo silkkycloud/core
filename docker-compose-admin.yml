@@ -4,6 +4,7 @@ services:
 
   agent:
     image: portainer/agent:2.9.2-alpine
+    privileged: true
     networks:
       - agent
     deploy:

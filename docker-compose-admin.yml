@@ -4,7 +4,6 @@ services:
 
   agent:
     image: portainer/agent:2.9.2-alpine
-    privileged: true
     networks:
       - agent
     deploy:
@@ -27,7 +26,7 @@ services:
   portainer:
     image: portainer/portainer-ce:2.9.2-alpine
     hostname: portainer
-    command: -H tcp://tasks.agent:9001 --tlsskipverify --tunnel-port 9001
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
     networks:
       - agent
       - public

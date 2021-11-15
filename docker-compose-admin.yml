@@ -5,7 +5,7 @@ services:
   agent:
     image: portainer/agent:2.9.2-alpine
     networks:
-      - agent_net
+      - agent
     deploy:
       mode: global
       placement:
@@ -28,7 +28,7 @@ services:
     hostname: portainer
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     networks:
-      - agent_net
+      - agent
       - public
     deploy:
       mode: replicated
@@ -48,7 +48,7 @@ services:
       - portainer_data:/data
 
 networks:
-  agent_net:
+  agent:
     driver: overlay
     attachable: true
     

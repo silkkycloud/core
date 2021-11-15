@@ -4,6 +4,7 @@ admin.silkky.cloud {
 	route /auth* {
 		authp {
 			cookie domain silkky.cloud
+			crypto default token name authtoken
 			backend github {env.GITHUB_CLIENT_ID} {env.GITHUB_CLIENT_SECRET}
 			transform user {
 				exact match sub github.com/TheSilkky
@@ -45,6 +46,7 @@ portainer.silkky.cloud {
 	route {
 		authorize {
 			primary yes
+			crypto default token name authtoken
 			set auth url https://admin.silkky.cloud/auth
 			set token sources cookie
 			allow roles authp/admin

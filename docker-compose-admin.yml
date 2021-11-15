@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   agent:
-    image: portainer/agent:alpine
+    image: portainer/agent:2.9.2-alpine
     networks:
       - agent_net
     deploy:

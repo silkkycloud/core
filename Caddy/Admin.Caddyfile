@@ -43,12 +43,12 @@ portainer.silkky.cloud {
 	import secureheader
 
 	route {
-		#authorize {
-		#	primary yes
-		#	set auth url https://admin.silkky.cloud/auth
-		#	allow roles authp/admin
-		#	enable js redirect
-		#}
+		authorize {
+			primary yes
+			set auth url https://admin.silkky.cloud/auth
+			allow roles authp/admin
+			enable js redirect
+		}
 
 		reverse_proxy http://portainer:9000
 	}

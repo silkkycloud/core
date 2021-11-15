@@ -46,6 +46,7 @@ portainer.silkky.cloud {
 		authorize {
 			primary yes
 			set auth url https://admin.silkky.cloud/auth
+			set token sources cookie
 			allow roles authp/admin
 			enable js redirect
 		}

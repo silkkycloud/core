@@ -4,6 +4,7 @@ services:
 
   agent:
     image: portainer/agent:latest
+    hostname: agent
     networks:
       - agent
     deploy:
@@ -26,7 +27,7 @@ services:
   portainer:
     image: portainer/portainer-ce:alpine
     hostname: portainer
-    command: -H tcp://tasks.agent:9001 --tlsskipverify
+    command: -H http://agent:9001 --tlsskipverify
     networks:
       - agent
       - public

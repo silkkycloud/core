@@ -1,3 +1,7 @@
+{
+	email silkky@silkky.cloud
+}
+
 (secureheader) {
 	tls /tls/silkky.cloud-cert.pem /tls/silkky.cloud.pem
 

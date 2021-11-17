@@ -64,6 +64,7 @@ services:
       mode: global
       labels:
         prometheus-job: cadvisor
+        prometheus-port: 8080
       placement:
         constraints:
           - "node.platform.os == linux"

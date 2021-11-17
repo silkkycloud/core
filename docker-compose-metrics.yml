@@ -83,6 +83,8 @@ networks:
 
   metrics_net:
     driver: overlay
+    driver_opts:
+      encrypted: true
 
 volumes:
   prometheus_data:

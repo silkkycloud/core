@@ -5,6 +5,7 @@ admin.silkky.cloud {
 		authp {
 			cookie domain silkky.cloud
 			backend github {env.GITHUB_CLIENT_ID} {env.GITHUB_CLIENT_SECRET}
+
 			transform user {
 				exact match sub github.com/TheSilkky
 				action add role authp/admin

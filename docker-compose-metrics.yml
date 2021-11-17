@@ -82,6 +82,37 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
 
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    command:
+      - '--path.procfs=/host/proc'       
+      - '--path.sysfs=/host/sys'       
+      - '--path.rootfs=/host'       
+      - '--collector.filesystem.ignored-mount-points="^(/rootfs|/host|)/(sys|proc|dev|host|etc)($$|/)"'       
+      - '--collector.filesystem.ignored-fs-types="^(sys|proc|auto|cgroup|devpts|ns|au|fuse\.lxc|mqueue)(fs|)$$"'     
+    hostname: node-exporter
+    networks:
+      - metrics_net
+    deploy:
+      mode: global
+      labels:
+        prometheus-job: node-exporter
+        prometheus-port: 9100
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.2'
+          memory: 50M
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro       
+      - /:/rootfs:ro   
+
   dockersocat:
     image: ghcr.io/tecnativa/docker-socket-proxy:0.1
     networks:

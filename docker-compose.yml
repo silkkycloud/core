@@ -17,9 +17,6 @@ services:
         mode: host
     deploy:
       mode: global
-      labels:
-        prometheus-job: caddy
-        prometheus-port: 2019
       placement:
         constraints:
           - "node.labels.proxy == true"

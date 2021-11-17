@@ -6,7 +6,7 @@ scrape_configs:
   # Create a job for Docker daemons.
   - job_name: 'docker'
     dockerswarm_sd_configs:
-      - host: tpc://tcp://tasks.dockersocat:2375
+      - host: tcp://tasks.dockersocat:2375
         role: nodes
     relabel_configs:
       # Fetch metrics on port 9323.

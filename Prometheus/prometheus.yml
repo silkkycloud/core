@@ -31,6 +31,12 @@ scrape_configs:
       - source_labels: [__meta_dockerswarm_service_label_prometheus_job]
         regex: .+
         action: keep
+      # Get metrics port from `prometheus-port` label
+      - source_labels: [__address__, __meta_dockerswarm_service_label_prometheus_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: ${1}:${2}
+        target_label: __address__
       # Use the task labels that are prefixed by `prometheus-`.
       - regex: __meta_dockerswarm_service_label_prometheus_(.+)
         action: labelmap

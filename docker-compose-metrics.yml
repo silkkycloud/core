@@ -51,7 +51,7 @@ services:
       - prometheus_data:/prometheus
       - ./Prometheus:/etc/prometheus
       # Needed to discover targets in Swarm cluster
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest

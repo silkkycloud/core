@@ -5,17 +5,17 @@ global:
 scrape_configs:
   # Create a job for Docker daemons.
   - job_name: 'docker'
-    static_configs:
+    dockerswarm_sd_configs:
+      - host: tpc://tcp://tasks.dockersocat:2375
+        role: nodes
+    relabel_configs:
       # Fetch metrics on port 9323.
-      - targets: ['10.0.1.1:9323']
-        labels:
-          instance: 'main-1'
-      - targets: ['10.0.1.2:9323']
-        labels:
-          instance: 'main-2'
-      - targets: ['10.0.1.3:9323']
-        labels:
-          instance: 'main-3'
+      - source_labels: [__meta_dockerswarm_node_address]
+        target_label: __address__
+        replacement: $1:9323
+      # Set hostname as instance label
+      - source_labels: [__meta_dockerswarm_node_hostname]
+        target_label: instance
 
   # Create a job for Docker Swarm containers.
   - job_name: 'dockerswarm'

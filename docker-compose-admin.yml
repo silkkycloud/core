@@ -54,7 +54,8 @@ networks:
     internal: true
     driver_opts:
       encrypted: "true"
-    
+      com.docker.network.driver.mtu: 1450
+      
   public:
     external: true
 

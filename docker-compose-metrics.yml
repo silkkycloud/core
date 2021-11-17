@@ -146,11 +146,13 @@ networks:
     internal: true
     driver_opts:
       encrypted: "true"
+      com.docker.network.driver.mtu: 1450
   socat_net:
     driver: overlay
     internal: true
     driver_opts:
       encrypted: "true"
+      com.docker.network.driver.mtu: 1450
 
 volumes:
   prometheus_data:

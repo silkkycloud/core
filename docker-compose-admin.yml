@@ -51,8 +51,9 @@ networks:
   agent_net:
     driver: overlay
     attachable: true
+    internal: true
     driver_opts:
-      encrypted: true
+      encrypted: "true"
     
   public:
     external: true

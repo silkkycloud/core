@@ -3,9 +3,9 @@
 This is all of the Docker related files for deploying our Swarm cluster.
 
 **Features:**
-- [Caddy]() Fast, multi-platform web server
-- [Authp]() and [Authorize]() Caddy plugins for securing access to admin services
-- [Portainer]() Docker and Kubernetes management interface
-- [Prometheus]() open-source systems monitoring and alerting toolkit
-- [CAdvisor]() and [Node Exporter]() for server and container performance metrics
-- [Grafana]() open-source data visualization platform
+- [Caddy](https://caddyserver.com/) Fast, multi-platform web server
+- [Authp](https://github.com/greenpau/caddy-auth-portal) and [Authorize](https://github.com/greenpau/caddy-authorize) Caddy plugins for securing access to admin services
+- [Portainer](https://www.portainer.io/) Docker and Kubernetes management interface
+- [Prometheus](https://prometheus.io/) open-source systems monitoring and alerting toolkit
+- [CAdvisor](https://github.com/google/cadvisor) and [Node Exporter](https://github.com/prometheus/node_exporter) for server and container performance metrics
+- [Grafana](https://grafana.com/) open-source data visualization platform

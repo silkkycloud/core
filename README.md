@@ -9,3 +9,5 @@ This is all of the files for deploying our Swarm cluster, in one place as a infr
 - [Prometheus](https://prometheus.io/) open-source systems monitoring and alerting toolkit
 - [CAdvisor](https://github.com/google/cadvisor) and [Node Exporter](https://github.com/prometheus/node_exporter) for server and container performance metrics
 - [Grafana](https://grafana.com/) open-source data visualization platform
+
+**Note:** If you want to use this for your purposes it will require extensive modification.

@@ -1,6 +1,6 @@
 # Our Cluster
 
-This is all of files for deploying our Swarm cluster, in one place as a infrastructure as code style deployment.
+This is all of the files for deploying our Swarm cluster, in one place as a infrastructure as code style deployment.
 
 **Features:**
 - [Caddy](https://caddyserver.com/) Fast, multi-platform web server

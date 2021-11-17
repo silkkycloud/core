@@ -28,9 +28,13 @@ services:
 
   prometheus:
     image: quay.io/prometheus/prometheus:v2.31.1
-    command: --web.enable-lifecycle --web.external-url=/prometheus/ --config.file=/etc/prometheus/prometheus.yml
+    command: 
+      - --web.enable-lifecycle 
+      - --web.external-url=/prometheus/ 
+      - --config.file=/etc/prometheus/prometheus.yml
     hostname: prometheus
     networks:
+      - socat_net
       - metrics_net
       - public
     deploy:
@@ -50,8 +54,6 @@ services:
     volumes:
       - prometheus_data:/prometheus
       - ./Prometheus:/etc/prometheus
-      # Needed to discover targets in Swarm cluster
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -77,11 +79,42 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
 
+  dockersocat:
+    image: ghcr.io/tecnativa/docker-socket-proxy:0.1
+    networks:
+      - socat_net
+    logging:
+      driver: none
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - "node.role == manager"
+      resources:
+        reservations:
+          memory: 5M
+          cpus: '0.05'
+        limits:
+          memory: 25M
+          cpus: '0.1'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      NODES: 1
+      NETWORKS: 1
+      SERVICES: 1
+      TASKS: 1
+
 networks:
   public: 
     external: true
 
   metrics_net:
+    driver: overlay
+    internal: true
+    driver_opts:
+      encrypted: "true"
+  socat_net:
     driver: overlay
     internal: true
     driver_opts:

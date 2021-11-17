@@ -3,11 +3,6 @@ global:
   scrape_timeout: 10s
 
 scrape_configs:
-  # Make Prometheus scrape itself for metrics.
-  - job_name: 'prometheus'
-    static_configs:
-    - targets: ['localhost:9090/prometheus']
-
   # Create a job for Docker Swarm containers.
   - job_name: 'dockerswarm'
     dockerswarm_sd_configs:

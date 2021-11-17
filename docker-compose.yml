@@ -28,7 +28,7 @@ services:
       - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
 
 networks:
-  # Create: docker network create -d overlay --subnet 20.0.0.0/16 --opt encrypted=true public
+  # Create: docker network create -d overlay --subnet 20.0.0.0/16 --opt com.docker.network.driver.mtu=1450 --opt encrypted=true public
   public:
     external: true
 

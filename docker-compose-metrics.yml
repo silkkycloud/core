@@ -62,6 +62,8 @@ services:
       - metrics_net
     deploy:
       mode: global
+      labels:
+        prometheus-job: cadvisor
       placement:
         constraints:
           - "node.platform.os == linux"

@@ -83,6 +83,7 @@ networks:
 
   metrics_net:
     driver: overlay
+    internal: true
     driver_opts:
       encrypted: "true"
 

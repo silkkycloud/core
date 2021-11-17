@@ -10,11 +10,15 @@ scrape_configs:
         role: nodes
     static_configs:
       # Fetch metrics on port 9323.
-      - targets: ['10.0.1.1:9323', '10.0.1.2:9323', '10.0.1.3:9323']
-    relabel_configs:
-      # Set hostname as instance label
-      - source_labels: [__meta_dockerswarm_node_hostname]
-        target_label: instance
+      - targets: ['10.0.1.1:9323']
+        labels:
+          instance: 'main-1'
+      - targets: ['10.0.1.2:9323']
+        labels:
+          instance: 'main-2'
+      - targets: ['10.0.1.3:9323']
+        labels:
+          instance: 'main-3'
 
   # Create a job for Docker Swarm containers.
   - job_name: 'dockerswarm'

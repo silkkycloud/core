@@ -9,7 +9,7 @@ services:
     container_name: wireguard
     hostname: wireguard
     ports:
-      - ${WIREGUARD_PORT}:8080/udp
+      - ${WIREGUARD_PORT}:${WIREGUARD_PORT}/udp
     volumes:
       - config:/config
       - /lib/modules:/lib/modules
@@ -18,7 +18,7 @@ services:
       - PGID=1000
       - TZ=Europe/Helsinki
       - SERVERURL=${WIREGUARD_SERVER_IP}
-      - SERVERPORT=8080
+      - SERVERPORT=${WIREGUARD_PORT}
       - PEERS=${WIREGUARD_PEERS}
       - PEERDNS=9.9.9.9
       - INTERNAL_SUBNET=10.13.13.0

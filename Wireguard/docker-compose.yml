@@ -9,7 +9,7 @@ services:
     container_name: wireguard
     hostname: wireguard
     ports:
-      - 8080:${WIREGUARD_PORT}/udp
+      - ${WIREGUARD_PORT}:8080/udp
     volumes:
       - config:/config
       - /lib/modules:/lib/modules

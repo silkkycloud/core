@@ -1,0 +1,9 @@
+nitter-test.silkky.cloud {
+	import secureheader
+
+	header {
+		Content-Security-Policy default-src 'none'; script-src 'self' 'unsafe-inline'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; media-src 'self' blob:; worker-src 'self' blob:; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; connect-src 'self' https://*.twimg.com; manifest-src 'self'
+	}
+
+	reverse_proxy http://nitter:8080
+}

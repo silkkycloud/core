@@ -1,0 +1,33 @@
+# Deploy using Compose
+version: '3.8'
+
+services:
+
+  wireguard:
+    image: ghcr.io/linuxserver/wireguard
+    restart: always
+    container_name: wireguard
+    hostname: wireguard
+    ports:
+      - 8080:${WIREGUARD_PORT}/udp
+    volumes:
+      - wireguard_config:/config
+      - /lib/modules:/lib/modules
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Helsinki
+      - SERVERURL=${WIREGUARD_SERVER_IP}
+      - SERVERPORT=8080
+      - PEERS=${WIREGUARD_PEERS}
+      - PEERDNS=9.9.9.9
+      - INTERNAL_SUBNET=10.13.13.0
+      - ALLOWEDIPS=0.0.0.0/0
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+
+volumes:
+  wireguard_config:

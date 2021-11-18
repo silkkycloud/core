@@ -1,4 +1,4 @@
-nitter-test.silkky.cloud {
+nitter.silkky.cloud {
 	import secureheader
 
 	header {

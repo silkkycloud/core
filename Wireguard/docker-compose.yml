@@ -17,12 +17,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Helsinki
-      - SERVERURL=${WIREGUARD_SERVER_IP}
       - SERVERPORT=${WIREGUARD_PORT}
       - PEERS=${WIREGUARD_PEERS}
-      - PEERDNS=9.9.9.9
-      - INTERNAL_SUBNET=10.13.13.0
-      - ALLOWEDIPS=0.0.0.0/0
     cap_add:
       - NET_ADMIN
       - SYS_MODULE

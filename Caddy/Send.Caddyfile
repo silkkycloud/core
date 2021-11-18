@@ -1,4 +1,4 @@
-send-test.silkky.cloud {
+send.silkky.cloud {
 	import secureheader
 
 	reverse_proxy http://send:8080

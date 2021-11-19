@@ -11,6 +11,7 @@
 		X-Content-Type-Options "nosniff"
 		X-Frame-Options: "SAMEORIGIN"
 		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "interest-cohort=()"
 	}
 }
 
@@ -26,3 +27,4 @@ import ./Admin.Caddyfile
 import ./Libreddit.Caddyfile
 import ./Nitter.Caddyfile
 import ./Send.Caddyfile
+import ./Bitwarden.Caddyfile

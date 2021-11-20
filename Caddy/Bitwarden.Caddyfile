@@ -11,15 +11,6 @@ vault-test.silkky.cloud {
 		reverse_proxy http://vaultwarden:3012
 	}
 
-	route /admin* {
-		authorize {
-			set auth url https://admin.silkky.cloud/auth
-			allow roles authp/admin
-		}
-
-		reverse_proxy http://vaultwarden:80
-	}
-
 	handle @vaultapi {
 		reverse_proxy http://vaultwarden:80
 	}

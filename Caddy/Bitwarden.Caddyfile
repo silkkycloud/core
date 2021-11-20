@@ -12,8 +12,11 @@ vault-test.silkky.cloud {
 		reverse_proxy http://vaultwarden:80
 	}
 
+	handle /notifications/hub/negotiate {
+		reverse_proxy http://vaultwarden:80
+	}
+
 	handle /notifications/hub {
-		uri strip_prefix /notifications/hub
 		reverse_proxy http://vaultwarden:3012
 	}
 

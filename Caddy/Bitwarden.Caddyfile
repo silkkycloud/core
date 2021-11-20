@@ -1,4 +1,4 @@
-vault-test.silkky.cloud {
+vault.silkky.cloud {
 	import secureheader
 
 	@vaultapi path /api* /identity* /icons* /notifications* /attachments*

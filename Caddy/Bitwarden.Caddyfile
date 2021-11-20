@@ -1,7 +1,7 @@
 vault-test.silkky.cloud {
 	import secureheader
 
-	@vaultapi path /api* /admin* /identity* /icons* /notifications*
+	@vaultapi path /api* /identity* /icons* /notifications* /attachments*
 
 	handle /notifications/hub/negotiate {
 		reverse_proxy http://vaultwarden:80

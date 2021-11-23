@@ -34,6 +34,15 @@ admin.silkky.cloud {
 		reverse_proxy http://prometheus:9090
 	}
 
+	route /cadvisor* {
+		authorize {
+			set auth url /auth
+			allow roles authp/admin
+		}
+
+		reverse_proxy http://cadvisor:8080
+	}
+
 	route {
 		redir https://admin.silkky.cloud/auth 302
 	}

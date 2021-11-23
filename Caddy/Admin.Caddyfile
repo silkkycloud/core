@@ -12,6 +12,7 @@ admin.silkky.cloud {
 				ui link "Portainer" https://portainer.silkky.cloud
 				ui link "Grafana" /grafana
 				ui link "Prometheus" /prometheus
+				ui link "CAdvisor" /cadvisor
 			}
 		}
 	}

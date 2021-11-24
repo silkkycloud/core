@@ -28,3 +28,4 @@ import ./Libreddit.Caddyfile
 import ./Nitter.Caddyfile
 import ./Send.Caddyfile
 import ./Bitwarden.Caddyfile
+import ./Piped.Caddyfile

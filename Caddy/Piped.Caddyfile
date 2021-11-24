@@ -1,4 +1,4 @@
-api-test.piped.silkky.cloud {
+api.piped.silkky.cloud {
 	import secureheader
 
 	reverse_proxy http://piped:8080

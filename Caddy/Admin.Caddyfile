@@ -41,6 +41,7 @@ admin.silkky.cloud {
 			allow roles authp/admin
 		}
 
+		uri strip_prefix /cadvisor
 		reverse_proxy http://cadvisor:8080
 	}
 

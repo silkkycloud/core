@@ -20,6 +20,9 @@ services:
       placement:
         constraints:
           - "node.labels.proxy == true"
+      update_config:
+        parallelism: 1
+        failure_action: rollback
     volumes:
       - caddy_tls:/tls
     environment:

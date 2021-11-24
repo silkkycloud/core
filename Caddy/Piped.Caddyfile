@@ -1,5 +1,14 @@
 api.piped.silkky.cloud {
-	import secureheader
+	tls /tls/piped.silkky.cloud-cert.pem /tls/piped.silkky.cloud.pem
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-XSS-Protection "1; mode=block"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options: "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "interest-cohort=()"
+	}
 
 	reverse_proxy http://piped:8080
 }

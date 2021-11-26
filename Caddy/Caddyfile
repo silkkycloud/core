@@ -23,7 +23,6 @@
 
 # Enabled sites
 import ./Admin.Caddyfile
-
 import ./Libreddit.Caddyfile
 import ./Nitter.Caddyfile
 import ./Send.Caddyfile

@@ -1,4 +1,4 @@
-tasks-test.silkky.cloud {
+tasks.silkky.cloud {
 	import secureheader
 
 	@tasksapi path /api* /dav* /.well-known*

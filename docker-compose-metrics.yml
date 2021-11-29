@@ -55,33 +55,6 @@ services:
       - prometheus_data:/prometheus
       - ./Prometheus:/etc/prometheus
 
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    hostname: cadvisor
-    networks:
-      - metrics_net
-    deploy:
-      mode: global
-      labels:
-        prometheus-job: cadvisor
-        prometheus-port: 8080
-      placement:
-        constraints:
-          - "node.platform.os == linux"
-          - "node.role == manager"
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-        reservations:
-          cpus: '0.2'
-          memory: 50M
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
     command:
@@ -96,6 +69,7 @@ services:
       labels:
         prometheus-job: node-exporter
         prometheus-port: 9100
+        prometheus-path: /metrics
       placement:
         constraints:
           - "node.platform.os == linux"

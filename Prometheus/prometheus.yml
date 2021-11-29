@@ -37,6 +37,10 @@ scrape_configs:
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: ${1}:${2}
         target_label: __address__
+      # Add node label to job
+      - source_labels: [__meta_dockerswarm_node_hostname]
+        replacement: $1
+        target_label: node
       # Use the task labels that are prefixed by `prometheus-`.
       - regex: __meta_dockerswarm_service_label_prometheus_(.+)
         action: labelmap

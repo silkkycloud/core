@@ -143,7 +143,6 @@ networks:
 
   metrics_net:
     driver: overlay
-    internal: true
     driver_opts:
       encrypted: "true"
       com.docker.network.driver.mtu: 1450

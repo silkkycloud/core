@@ -31,6 +31,10 @@ scrape_configs:
       - source_labels: [__meta_dockerswarm_service_label_prometheus_job]
         regex: .+
         action: keep
+      # Only keep container that are attached to metrics_net.
+      - source_labels: [__meta_dockerswarm_network_name]
+        regex: metrics_net
+        action: keep
       # Get metrics port from `prometheus-port` label
       - source_labels: [__address__, __meta_dockerswarm_service_label_prometheus_port]
         action: replace

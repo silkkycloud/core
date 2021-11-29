@@ -41,6 +41,11 @@ scrape_configs:
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: ${1}:${2}
         target_label: __address__
+      # Get metrics path from `prometheus-path` label
+      - source_labels: [__meta_dockerswarm_service_label_prometheus_path]
+        action: replace
+        replacement: $1
+        target_label: __metrics_path__
       # Add node label to job
       - source_labels: [__meta_dockerswarm_node_hostname]
         replacement: $1

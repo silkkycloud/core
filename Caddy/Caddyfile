@@ -29,3 +29,4 @@ import ./Send.Caddyfile
 import ./Bitwarden.Caddyfile
 import ./Piped.Caddyfile
 import ./Vikunja.Caddyfile
+import ./Pleroma.Caddyfile

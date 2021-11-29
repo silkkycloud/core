@@ -6,6 +6,7 @@ services:
     image: ghcr.io/silkkycloud/core-caddy:latest
     hostname: caddy
     networks:
+      - metrics_net
       - public
     ports:
       # X-Forwarded-For / X-Real-IP headers are only available in host mode.
@@ -23,6 +24,10 @@ services:
       update_config:
         parallelism: 1
         failure_action: rollback
+      labels:
+        prometheus-job: caddy
+        prometheus-port: 2019
+        prometheus-path: /metrics
     volumes:
       - caddy_tls:/tls
     environment:
@@ -33,6 +38,8 @@ services:
 networks:
   # Create: docker network create -d overlay --subnet 20.0.0.0/16 --opt com.docker.network.driver.mtu=1450 --opt encrypted=true public
   public:
+    external: true
+  metrics_net:
     external: true
 
 volumes:

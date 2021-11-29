@@ -142,10 +142,7 @@ networks:
     external: true
 
   metrics_net:
-    driver: overlay
-    driver_opts:
-      encrypted: "true"
-      com.docker.network.driver.mtu: 1450
+    external: true
   socat_net:
     driver: overlay
     internal: true

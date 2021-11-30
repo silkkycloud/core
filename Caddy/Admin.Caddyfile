@@ -3,6 +3,7 @@ admin.silkky.cloud {
 
 	route /auth* {
 		authp {
+			crypto default token lifetime 3600
 			cookie domain silkky.cloud
 			backend github {env.GITHUB_CLIENT_ID} {env.GITHUB_CLIENT_SECRET}
 
@@ -12,7 +13,6 @@ admin.silkky.cloud {
 				ui link "Portainer" https://portainer.silkky.cloud
 				ui link "Grafana" /grafana
 				ui link "Prometheus" /prometheus
-				ui link "CAdvisor" /cadvisor
 			}
 		}
 	}
@@ -33,16 +33,6 @@ admin.silkky.cloud {
 		}
 
 		reverse_proxy http://prometheus:9090
-	}
-
-	route /cadvisor* {
-		authorize {
-			set auth url /auth
-			allow roles authp/admin
-		}
-
-		uri strip_prefix /cadvisor
-		reverse_proxy http://cadvisor:8080
 	}
 
 	route {

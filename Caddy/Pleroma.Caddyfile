@@ -1,4 +1,4 @@
-social-test.silkky.cloud {
+social.silkky.cloud {
 	import secureheader
 
 	reverse_proxy http://pleroma:4000

@@ -53,3 +53,16 @@ portainer.silkky.cloud {
 		reverse_proxy http://portainer:9000
 	}
 }
+
+cockroach.silkky.cloud {
+	import secureheader
+
+	route {
+		authorize {
+			set auth url https://admin.silkky.cloud/auth
+			allow roles authp/admin
+		}
+
+		reverse_proxy http://cockroachdb-1:8080
+	}
+}

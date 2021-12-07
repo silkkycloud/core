@@ -1,0 +1,27 @@
+api:
+  dashboard: true
+
+providers:
+  docker:
+    endpoint: "tcp://tasks.dockersocat:2375"
+    swarmMode: true
+  file:
+    filename: /etc/traefik/dynamic.yml
+
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: :443
+    proxyProtocol:
+      trustedIPs:
+        - "10.0.0.2/24"
+    http:
+      middlewares:
+        - secureHeaders@file

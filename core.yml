@@ -4,8 +4,10 @@ services:
 
   traefik:
     image: ghcr.io/silkkycloud/traefik:2.5.4
+    command: --configFile=/etc/traefik/traefik.yml
     hostname: traefik
     networks:
+      - socat_net
       - metrics_net
       - public
     ports:
@@ -31,6 +33,8 @@ services:
     configs:
       - source: traefik-static
         target: /etc/traefik/traefik.yml
+      - source: traefik-dynamic
+        target: /etc/traefik/dynamic.yml
     secrets:
       # Origin certificates
       - source: cloudflare-origin-crt
@@ -45,16 +49,47 @@ services:
         target: piped.key
         mode: 0600
 
+  dockersocat:
+    image: ghcr.io/tecnativa/docker-socket-proxy:0.1
+    networks:
+      - socat_net
+    logging:
+      driver: none
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - "node.role == manager"
+      resources:
+        reservations:
+          memory: 5M
+          cpus: '0.05'
+        limits:
+          memory: 25M
+          cpus: '0.1'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - CONTAINERS=1
+
 networks:
   # Create: docker network create -d overlay --subnet 20.0.0.0/16 --opt com.docker.network.driver.mtu=1450 --opt encrypted=true public
   public:
     external: true
   metrics_net:
     external: true
+  socat_net:
+    driver: overlay
+    internal: true
+    driver_opts:
+      encrypted: "true"
+      com.docker.network.driver.mtu: 1450
 
 configs:
   traefik-static:
     file: ./traefik.yml
+  traefik-dynamic:
+    file: ./traefik-dynamic.yml
 
 secrets:
   # Origin certificates

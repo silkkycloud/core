@@ -1,0 +1,31 @@
+http:
+  middlewares:
+    # Default security headers
+    secureHeaders:
+      headers:
+        # Strict-Transport-Security
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        # X-XSS-Protection
+        browserXssFilter: true
+        # X-Content-Type-Options
+        contentTypeNosniff: true
+        # X-Frame-Options
+        frameDeny: true
+        # Referrer-Policy
+        referrerPolicy: "strict-origin-when-cross-origin"
+        # Block Google FLoC
+        permissionsPolicy: "interest-cohort=()"
+
+tls:
+  options:
+    default:
+      minVersion: VersionTLS12
+  # Cloudflare origin certificate
+  certificates:
+    - certFile: /run/secrets/origin.crt
+      keyFile: /run/secrets/origin.key
+    # Piped
+    - certFile: /run/secrets/piped.crt
+      keyFile: /run/secrets/piped.key

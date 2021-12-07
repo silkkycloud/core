@@ -27,9 +27,9 @@ services:
         parallelism: 1
         failure_action: rollback
       labels:
-        prometheus-job: traefik
-        prometheus-port: 8082
-        prometheus-path: /metrics
+        - prometheus-job=traefik
+        - prometheus-port=8082
+        - prometheus-path=/metrics
     configs:
       - source: traefik-static
         target: /etc/traefik/traefik.yml

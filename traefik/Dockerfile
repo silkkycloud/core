@@ -20,7 +20,7 @@ RUN tar xvfz /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
 # Create directory structure
 RUN mkdir -p /etc/traefik
 
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # Add an unprivileged user and set directory permissions

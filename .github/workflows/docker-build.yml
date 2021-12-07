@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: ./traefik/Dockerfile
           push: true
           tags: ghcr.io/silkkycloud/traefik:latest,ghcr.io/silkkycloud/traefik:2.5.4
           cache-from: type=local,src=/tmp/.buildx-cache

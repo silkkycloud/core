@@ -41,7 +41,7 @@ STOPSIGNAL SIGTERM
 # Image metadata
 LABEL org.opencontainers.image.version=${TRAEFIK_VERSION}
 LABEL org.opencontainers.image.title=Traefik
-LABEL org.opencontainers.image.description="Traefik is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy."
+LABEL org.opencontainers.image.description="Traefik is a modern HTTP reverse proxy and load balancer."
 LABEL org.opencontainers.image.vendor="Silkky.Cloud"
 LABEL org.opencontainers.image.licenses=Unlicense
 LABEL org.opencontainers.image.source="https://github.com/silkkycloud/core"

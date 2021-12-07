@@ -3,8 +3,10 @@ api:
 
 providers:
   docker:
+    network: public
     endpoint: "tcp://tasks.dockersocat:2375"
     swarmMode: true
+    exposedByDefault: false
   file:
     filename: /etc/traefik/dynamic.yml
 

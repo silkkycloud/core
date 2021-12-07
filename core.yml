@@ -87,9 +87,9 @@ networks:
 
 configs:
   traefik-static:
-    file: ./traefik.yml
+    file: traefik/traefik.yml
   traefik-dynamic:
-    file: ./traefik-dynamic.yml
+    file: traefik/dynamic.yml
 
 secrets:
   # Origin certificates

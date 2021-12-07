@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
 
-  caddy:
-    image: ghcr.io/silkkycloud/core-caddy:latest
-    hostname: caddy
+  traefik:
+    image: ghcr.io/silkkycloud/traefik:2.5.4
+    hostname: traefik
     networks:
       - metrics_net
       - public
@@ -20,20 +20,27 @@ services:
       mode: global
       placement:
         constraints:
-          - "node.labels.proxy == true"
+          - "node.labels.reverse_proxy == true"
       update_config:
         parallelism: 1
         failure_action: rollback
       labels:
-        prometheus-job: caddy
-        prometheus-port: 2019
+        prometheus-job: traefik
+        prometheus-port: 8082
         prometheus-path: /metrics
-    volumes:
-      - caddy_tls:/tls
-    environment:
-      # OAuth for administrator applications
-      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
-      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+    secrets:
+      # Origin certificates
+      - source: cloudflare-origin-crt
+        target: origin.crt
+      - source: piped-cloudflare-origin-crt
+        target: piped.crt
+      # Origin keys
+      - source: cloudflare-origin-key
+        target: origin.key
+        mode: 0600
+      - source: piped-cloudflare-origin-key
+        target: piped.key
+        mode: 0600
 
 networks:
   # Create: docker network create -d overlay --subnet 20.0.0.0/16 --opt com.docker.network.driver.mtu=1450 --opt encrypted=true public
@@ -42,8 +49,14 @@ networks:
   metrics_net:
     external: true
 
-volumes:
-  # Needed for Cloudflare origin certificates
-  # Create: docker volume create caddy_tls
-  caddy_tls:
+secrets:
+  # Origin certificates
+  cloudflare-origin-crt:
+    external: true
+  piped-cloudflare-origin-crt:
+    external: true
+  # Origin keys
+  cloudflare-origin-key:
+    external: true
+  piped-cloudflare-origin-key:
     external: true

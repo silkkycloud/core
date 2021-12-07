@@ -1,13 +1,3 @@
 # Our Cluster
 
 This is all of the files for deploying our Swarm cluster, in one place as a infrastructure as code style deployment.
-
-**Features:**
-- [Caddy](https://caddyserver.com/) Fast, multi-platform web server
-- [Authp](https://github.com/greenpau/caddy-auth-portal) and [Authorize](https://github.com/greenpau/caddy-authorize) Caddy plugins for securing access to admin services
-- [Portainer](https://www.portainer.io/) Docker and Kubernetes management interface
-- [Prometheus](https://prometheus.io/) open-source systems monitoring and alerting toolkit
-- [Node Exporter](https://github.com/prometheus/node_exporter) for server performance metrics
-- [Grafana](https://grafana.com/) open-source data visualization platform
-
-**Note:** If you want to use this for your purposes it will require extensive modification.

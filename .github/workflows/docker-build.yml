@@ -5,9 +5,8 @@ on:
     paths-ignore:
       - "**.md"
     branches:
-      - master
-  schedule:
-    - cron: "0 12 * * 1"
+      - traefik
+  workflow_dispatch:
 
 jobs:
   build-docker:
@@ -39,7 +38,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/silkkycloud/core-caddy:latest
+          tags: ghcr.io/silkkycloud/traefik:latest,ghcr.io/silkkycloud/traefik:2.5.4
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move Cache

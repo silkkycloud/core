@@ -24,7 +24,7 @@ services:
           memory: 256M
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./Grafana:/etc/grafana
+      - ./grafana:/etc/grafana
 
   prometheus:
     image: quay.io/prometheus/prometheus:v2.31.1
@@ -53,7 +53,7 @@ services:
           memory: 256M
     volumes:
       - prometheus_data:/prometheus
-      - ./Prometheus:/etc/prometheus
+      - ./prometheus:/etc/prometheus
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
@@ -114,7 +114,6 @@ services:
 networks:
   public: 
     external: true
-
   metrics_net:
     external: true
   socat_net:

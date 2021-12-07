@@ -2,27 +2,6 @@ version: '3.8'
 
 services:
 
-  agent:
-    image: portainer/agent:2.9.3-alpine
-    networks:
-      - agent_net
-    deploy:
-      mode: global
-      placement:
-        constraints:
-          - "node.platform.os == linux"
-          - "node.role == manager"
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: 50M
-        reservations:
-          cpus: '0.05'
-          memory: 15M
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/volumes:/var/lib/docker/volumes
-
   portainer:
     image: portainer/portainer-ce:2.9.3-alpine
     hostname: portainer
@@ -47,7 +26,30 @@ services:
     volumes:
       - portainer_data:/data
 
+  agent:
+    image: portainer/agent:2.9.3-alpine
+    networks:
+      - agent_net
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+          - "node.role == manager"
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 50M
+        reservations:
+          cpus: '0.05'
+          memory: 15M
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+
 networks:
+  public:
+    external: true
   agent_net:
     driver: overlay
     attachable: true
@@ -55,9 +57,6 @@ networks:
     driver_opts:
       encrypted: "true"
       com.docker.network.driver.mtu: 1450
-      
-  public:
-    external: true
 
 volumes:
   portainer_data:

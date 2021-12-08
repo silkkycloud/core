@@ -32,9 +32,6 @@ services:
         # Authentication middleware
         - "traefik.http.middlewares.oauth-auth.forwardauth.address=https://admin.silkky.cloud/oauth2/auth"
         - "traefik.http.middlewares.oauth-auth.forwardauth.trustForwardHeader=true"
-        - "traefik.http.middlewares.oauth-auth.errors.status=401-403"
-        - "traefik.http.middlewares.oauth-auth.errors.service=oauth2-proxy-service"
-        - "traefik.http.middlewares.oauth-auth.errors.query=/oauth2/sign_in"
     configs:
       - source: oauth2-emails
         target: /etc/oauth2-proxy/emails.txt

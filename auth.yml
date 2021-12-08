@@ -35,9 +35,16 @@ services:
         - "traefik.http.middlewares.oauth-auth.errors.status=401-403"
         - "traefik.http.middlewares.oauth-auth.errors.service=oauth2-proxy-service"
         - "traefik.http.middlewares.oauth-auth.errors.query=/oauth2/sign_in"
+    configs:
+      - source: oauth2-emails
+        target: /etc/oauth2-proxy/emails.txt
     env_file:
       - ./oauth2-proxy/oauth2-proxy.env
 
 networks:
   public:
     external: true
+
+configs:
+  oauth2-emails:
+    file: ./oauth2-proxy/emails.txt

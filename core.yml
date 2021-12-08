@@ -5,6 +5,8 @@ services:
   traefik:
     image: ghcr.io/silkkycloud/traefik:2.5.4
     command: --configFile=/etc/traefik/traefik.yml
+    cap_add:
+      - NET_BIND_SERVICE
     hostname: traefik
     networks:
       - socat_net

@@ -19,8 +19,7 @@ RUN tar xvfz /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
 
 # Add an unprivileged user and set directory permissions
 RUN adduser --disabled-password --gecos "" --no-create-home traefik \
-    && chown -R traefik:traefik /usr/local/bin/traefik \
-    && chown -R traefik:traefik /etc/traefik
+    && chown -R traefik:traefik /usr/local/bin/traefik
 
 USER traefik
 

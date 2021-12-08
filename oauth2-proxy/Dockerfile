@@ -14,7 +14,7 @@ RUN apk add --no-cache \
 
 ADD https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v${OAUTH2_PROXY_VERSION}/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz
 RUN tar xvfz /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz -C /tmp \
-    && cp -r /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64/oauth2-proxy
+    && cp -r /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64/oauth2-proxy \
     && rm -rf /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz \
     && chmod +x /usr/local/bin/oauth2-proxy
 

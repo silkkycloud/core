@@ -76,9 +76,9 @@ services:
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
     command:
-      - '--path.procfs=/host/proc'       
-      - '--path.sysfs=/host/sys'       
-      - '--path.rootfs=/host'   
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/host
     hostname: node-exporter
     networks:
       - metrics_net

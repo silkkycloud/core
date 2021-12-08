@@ -99,7 +99,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.hostname == main-3"
+          - "node.hostname == main-1"
       resources:
         limits:
           cpus: '0.5'

@@ -6,6 +6,7 @@ services:
     image: ghcr.io/silkkycloud/traefik:2.5.4
     command: --configFile=/etc/traefik/traefik.yml
     cap_add:
+      # Image runs rootless, This allows Docker to bind the privileged ports.
       - NET_BIND_SERVICE
     hostname: traefik
     networks:

@@ -28,7 +28,6 @@ services:
         - "traefik.http.routers.grafana.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/grafana/`)"
         - "traefik.http.routers.grafana.entrypoints=websecure"
         - "traefik.http.routers.grafana.tls=true"
-        - "traefik.http.routers.grafana.middlewares=authentik-auth@docker"
         - "traefik.http.routers.grafana.service=grafana-service"
         # Service
         - "traefik.http.services.grafana-service.loadbalancer.server.port=3000"
@@ -67,7 +66,6 @@ services:
         - "traefik.http.routers.prometheus.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/prometheus/`)"
         - "traefik.http.routers.prometheus.entrypoints=websecure"
         - "traefik.http.routers.prometheus.tls=true"
-        - "traefik.http.routers.prometheus.middlewares=authentik-auth@docker"
         - "traefik.http.routers.prometheus.service=prometheus-service"
         # Service
         - "traefik.http.services.prometheus-service.loadbalancer.server.port=9090"

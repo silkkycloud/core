@@ -37,7 +37,7 @@ services:
         # Traefik
         - "traefik.enable=true"
         # Router
-        - "traefik.http.routers.traefik.rule=Host(`traefik.silkky.cloud`)"
+        - "traefik.http.routers.traefik.rule=Host(`traefik.admin.silkky.cloud`)"
         - "traefik.http.routers.traefik.entrypoints=websecure"
         - "traefik.http.routers.traefik.tls=true"
         - "traefik.http.routers.traefik.middleware=authentik-proxy@docker"
@@ -55,12 +55,17 @@ services:
         target: origin.crt
       - source: piped-cloudflare-origin-crt
         target: piped.crt
+      - source: admin-cloudflare-origin-crt
+        target: admin.crt
       # Origin keys
       - source: cloudflare-origin-key
         target: origin.key
         mode: 0600
       - source: piped-cloudflare-origin-key
         target: piped.key
+        mode: 0600
+      - source: admin-cloudflare-origin-key
+        target: admin.key
         mode: 0600
 
   dockersocat:

@@ -26,7 +26,7 @@ services:
       labels:
         - "traefik.enable=true"
         # Router
-        - "traefik.http.routers.portainer.rule=Host(`portainer.admin.silkky.cloud`)"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.silkky.cloud`)"
         - "traefik.http.routers.portainer.entrypoints=websecure"
         - "traefik.http.routers.portainer.tls=true"
         #- "traefik.http.routers.portainer.middlewares=authentik-auth@docker"

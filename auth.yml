@@ -121,7 +121,7 @@ services:
           - "node.hostname == main-3"
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.5'
           memory: 4G
         reservations:
           cpus: '0.2'

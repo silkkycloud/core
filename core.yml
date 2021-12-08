@@ -34,15 +34,16 @@ services:
         - "prometheus-job=traefik"
         - "prometheus-port=8082"
         - "prometheus-path=/metrics"
-#        # Traefik
-#        - "traefik.enable=true"
-#        # Router
-#        - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.silkky.cloud`)"
-#        - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
-#        - "traefik.http.routers.traefik-dashboard.tls=true"
-#        - "traefik.http.routers.traefik-dashboard.service=traefik-dashboard-service"
-#        # Service
-#        - "traefik.http.services.traefik-dashboard-service.loadbalancer.server.port=8080"
+        # Traefik
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.silkky.cloud`)"
+        - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+        - "traefik.http.routers.traefik-dashboard.tls=true"
+        - "traefik.http.routers.traefik-dashboard.middlewares=oauth-auth@docker"
+        - "traefik.http.routers.traefik-dashboard.service=traefik-dashboard-service"
+        # Service
+        - "traefik.http.services.traefik-dashboard-service.loadbalancer.server.port=8080"
     configs:
       - source: traefik-static
         target: /etc/traefik/traefik.yml

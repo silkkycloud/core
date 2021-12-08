@@ -81,7 +81,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      - CONTAINERS=1
+      - NETWORKS=1
+      - SERVICES=1
+      - TASKS=1
 
 networks:
   # Create: docker network create -d overlay --subnet 20.0.0.0/16 --opt com.docker.network.driver.mtu=1450 --opt encrypted=true public

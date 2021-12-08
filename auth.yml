@@ -53,41 +53,39 @@ services:
         gid: "1000"
         mode: 0600
 
-#  authentik_proxy:
-#    image: ghcr.io/goauthentik/proxy:2021.10.4
-#    hostname: authentik-proxy
-#    networks:
-#      - backend
-#      - public
-#    deploy:
-#      mode: replicated
-#      replicas: 1
-#      update_config:
-#        failure_action: rollback
-#      resources:
-#        limits:
-#          cpus: '0.3'
-#          memory: 200M
-#        reservations:
-#          cpus: '0.05'
-#          memory: 50M
-#      labels:
-#        - "traefik.enable=true"
-#        # Router
-#        - "traefik.http.routers.authentik-proxy.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/akprox/`)"
-#        - "traefik.http.routers.authentik-proxy.entrypoints=websecure"
-#        - "traefik.http.routers.authentik-proxy.tls=true"
-#        - "traefik.http.routers.authentik-proxy.service=authentik-proxy-service"
-#        # Service
-#        - "traefik.http.services.authentik-proxy-service.loadbalancer.server.port=9000"
-#        # Authentik auth middleware
-#        - "traefik.http.middlewares.authentik-auth.forwardauth.address=http://authentik-proxy:9000/akprox/auth/traefik"
-#        - "traefik.http.middlewares.authentik-auth.forwardauth.trustForwardHeader=true"
-#        - "traefik.http.middlewares.authentik-auth.forwardauth.authResponseHeadersRegex=^.*$"
-#    environment:
-#      - AUTHENTIK_HOST=http://authentik:9000
-#      - AUTHENTIK_HOST_BROWSER=https://auth.silkky.cloud
-#      - AUTHENTIK_TOKEN=${AUTHENTIK_PROXY_TOKEN}
+  authentik_proxy:
+    image: ghcr.io/goauthentik/proxy:2021.10.4
+    hostname: authentik-proxy
+    networks:
+      - backend
+      - public
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        failure_action: rollback
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 200M
+        reservations:
+          cpus: '0.05'
+          memory: 50M
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.authentik-proxy.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/akprox/`)"
+        - "traefik.http.routers.authentik-proxy.entrypoints=websecure"
+        - "traefik.http.routers.authentik-proxy.tls=true"
+        - "traefik.http.routers.authentik-proxy.service=authentik-proxy-service"
+        # Service
+        - "traefik.http.services.authentik-proxy-service.loadbalancer.server.port=9000"
+        # Authentik auth middleware
+        - "traefik.http.middlewares.authentik-auth.forwardauth.address=http://authentik-proxy:9000/akprox/auth/traefik"
+        - "traefik.http.middlewares.authentik-auth.forwardauth.trustForwardHeader=true"
+        - "traefik.http.middlewares.authentik-auth.forwardauth.authResponseHeadersRegex=^.*$"
+    env_file:
+      - auth-authentik-proxy.env
 
   postgresql:
     image: postgres:14-alpine

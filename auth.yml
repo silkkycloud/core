@@ -101,9 +101,9 @@ services:
 #        # Service
 #        - "traefik.http.services.authentik-proxy-service.loadbalancer.server.port=9000"
 #        # Authentik auth middleware
-#        - "traefik.http.middlewares.authentik-proxy.forwardauth.address=http://authentik-proxy:9000/akprox/auth/traefik"
-#        - "traefik.http.middlewares.authentik-proxy.forwardauth.trustForwardHeader=true"
-#        - "traefik.http.middlewares.authentik-proxy.forwardauth.authResponseHeadersRegex=^.*$"
+#        - "traefik.http.middlewares.authentik-auth.forwardauth.address=http://authentik-proxy:9000/akprox/auth/traefik"
+#        - "traefik.http.middlewares.authentik-auth.forwardauth.trustForwardHeader=true"
+#        - "traefik.http.middlewares.authentik-auth.forwardauth.authResponseHeadersRegex=^.*$"
 #    environment:
 #      - AUTHENTIK_HOST=http://authentik:9000
 #      - AUTHENTIK_HOST_BROWSER=https://auth.silkky.cloud

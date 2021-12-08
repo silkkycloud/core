@@ -8,7 +8,6 @@ services:
     hostname: authentik
     networks:
       - backend
-      - cockroachdb_net
       - public
     deploy:
       mode: replicated
@@ -39,11 +38,10 @@ services:
         - "traefik.http.middlewares.authentik-headers.headers.customRequestHeaders.X-Forwarded-Proto=https"
     environment:
       # Database
-      - AUTHENTIK_POSTGRESQL__HOST=cockroach-lb
-      - AUTHENTIK_POSTGRESQL__PORT=26257
+      - AUTHENTIK_POSTGRESQL__HOST=postgresql
       - AUTHENTIK_POSTGRESQL__NAME=authentik
       - AUTHENTIK_POSTGRESQL__USER=authentik
-      - AUTHENTIK_POSTGRESQL__PASSWORD=""
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRESQL_PASSWORD}
       # Redis
       - AUTHENTIK_REDIS__HOST=redis
       # Mailer
@@ -110,6 +108,32 @@ services:
 #      - AUTHENTIK_HOST_BROWSER=https://auth.silkky.cloud
 #      - AUTHENTIK_TOKEN=${AUTHENTIK_PROXY_TOKEN}
 
+  postgresql:
+    image: postgres:14-alpine
+    hostname: postgresql
+    networks:
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - "node.hostname == main-3"
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+        reservations:
+          cpus: '0.2'
+          memory: 512M
+    volumes:
+      - database:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - POSTGRES_DB=authentik
+      - POSTGRES_USER=authentik
+      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
+
   redis:
     image: redis:6.2.6-alpine
     hostname: redis
@@ -136,8 +160,6 @@ services:
 networks:
   public:
     external: true
-  cockroachdb_net:
-    external: true
   backend:
     driver: overlay
     internal: true
@@ -147,6 +169,7 @@ networks:
 
 volumes:
   authentik_media:
+  database:
   redis_database:
 
 secrets:

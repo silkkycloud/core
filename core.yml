@@ -40,7 +40,7 @@ services:
         - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.silkky.cloud`)"
         - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
         - "traefik.http.routers.traefik-dashboard.tls=true"
-        - "traefik.http.routers.traefik-dashboard.middlewares=oauth-auth@docker"
+        #- "traefik.http.routers.traefik-dashboard.middlewares=oauth-auth@docker"
         - "traefik.http.routers.traefik-dashboard.service=traefik-dashboard-service"
         # Service
         - "traefik.http.services.traefik-dashboard-service.loadbalancer.server.port=8080"

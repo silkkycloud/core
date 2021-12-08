@@ -17,9 +17,6 @@ RUN tar xvfz /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
     rm -rf /tmp/traefik.tar.gz; \
     chmod +x /usr/local/bin/traefik
 
-# Create directory structure
-RUN mkdir -p /etc/traefik
-
 # Add an unprivileged user and set directory permissions
 RUN adduser --disabled-password --gecos "" --no-create-home traefik \
     && chown -R traefik:traefik /usr/local/bin/traefik \

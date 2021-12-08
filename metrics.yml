@@ -30,7 +30,7 @@ services:
         - "traefik.http.routers.grafana.middleware=authentik-proxy@docker"
         - "traefik.http.routers.grafana.service=grafana-service"
         # Service
-        - "traefik.http.services.portainer-service.loadbalancer.server.port=3000"
+        - "traefik.http.services.grafana-service.loadbalancer.server.port=3000"
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana:/etc/grafana

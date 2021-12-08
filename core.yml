@@ -136,8 +136,12 @@ secrets:
     external: true
   piped-cloudflare-origin-crt:
     external: true
+  admin-cloudflare-origin-crt:
+    external: true
   # Origin keys
   cloudflare-origin-key:
     external: true
   piped-cloudflare-origin-key:
+    external: true
+  admin-cloudflare-origin-key:
     external: true

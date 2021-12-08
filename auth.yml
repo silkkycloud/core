@@ -1,0 +1,141 @@
+version: '3.8'
+
+services:
+
+  authentik:
+    image: ghcr.io/goauthentik/server:2021.10.4
+    command: server
+    hostname: authentik
+    networks:
+      - backend
+      - cockroachdb_net
+      - public
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        failure_action: rollback
+        order: start-first
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+        reservations:
+          cpus: '0.1'
+          memory: 1G
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.authentik.rule=Host(`admin.silkky.cloud`)"
+        - "traefik.http.routers.authentik.entrypoints=websecure"
+        - "traefik.http.routers.authentik.service=authentik-service"
+        # Service
+        - "traefik.http.services.authelia-service.loadbalancer.server.port=9000"
+    environment:
+      # Database
+      - AUTHENTIK_POSTGRESQL__HOST=cockroach-lb
+      - AUTHENTIK_POSTGRESQL__PORT=26257
+      - AUTHENTIK_POSTGRESQL__NAME=authentik
+      - AUTHENTIK_POSTGRESQL__USER=authentik
+      # Redis
+      - AUTHENTIK_REDIS__HOST=redis
+      # Mailer
+      - AUTHENTIK_EMAIL__HOST=smtp.eu.mailgun.org
+      - AUTHENTIK_EMAIL__PORT=587
+      - AUTHENTIK_EMAIL__FROM=noreply@robot.silkky.cloud
+      - AUTHENTIK_EMAIL__USERNAME=noreply@robot.silkky.cloud
+      - AUTHENTIK_EMAIL__PASSWORD=file:///run/secrets/mailer-password.key
+      - AUTHENTIK_EMAIL__USE_TLS=true
+      # Settings
+      - AUTHENTIK_SECRET_KEY=file:///run/secrets/secret.key
+      - AUTHENTIK_COOKIE_DOMAIN=silkky.cloud
+      - AUTHENTIK_ERROR_REPORTING__ENABLED=false
+      - AUTHENTIK_DISABLE_STARTUP_ANALYTICS=true
+      - AUTHENTIK_AVATARS=none
+    volumes:
+      - authentik_media:/media
+    secrets:
+      - source: authentik-secret-key
+        target: secret.key
+        mode: 0600
+      # Mailer credentials
+      - source: mailgun-noreply-password
+        target: mailer-password.key
+        mode: 0600
+
+#  authentik_proxy:
+#    image: ghcr.io/goauthentik/proxy:2021.10.4
+#    hostname: authentik-proxy
+#    networks:
+#      - backend
+#      - public
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#      update_config:
+#        failure_action: rollback
+#      resources:
+#        limits:
+#          cpus: '0.3'
+#          memory: 200M
+#        reservations:
+#          cpus: '0.05'
+#          memory: 50M
+#      labels:
+#        - "traefik.enable=true"
+#        # Router
+#        - "traefik.http.routers.authentik-proxy.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/akprox/`)"
+#        - "traefik.http.routers.authentik-proxy.entrypoints=websecure"
+#        - "traefik.http.routers.authentik-proxy.service=authentik-proxy-service"
+#        # Service
+#        - "traefik.http.services.authentik-proxy-service.loadbalancer.server.port=9000"
+#        # Authentik auth middleware
+#        - "traefik.http.middlewares.authentik-proxy.forwardauth.address=http://authentik-proxy:9000/akprox/auth/traefik"
+#        - "traefik.http.middlewares.authentik-proxy.forwardauth.trustForwardHeader=true"
+#        - "traefik.http.middlewares.authentik-proxy.forwardauth.authResponseHeadersRegex=^.*$"
+#    environment:
+#      - AUTHENTIK_HOST=http://authentik:9000
+#      - AUTHENTIK_HOST_BROWSER=https://auth.silkky.cloud
+#      - AUTHENTIK_TOKEN=${AUTHENTIK_PROXY_TOKEN}
+
+  redis:
+    image: redis:6.2.6-alpine
+    hostname: redis
+    networks:
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - "node.hostname == main-1"
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.05'
+          memory: 50M
+    volumes:
+      - redis_database:/data
+
+networks:
+  public:
+    external: true
+  cockroachdb_net:
+    external: true
+  backend:
+    driver: overlay
+    internal: true
+    driver_opts:
+      encrypted: "true"
+      com.docker.network.driver.mtu: 1450
+
+volumes:
+  media:
+
+secrets:
+  authentik-secret-key:
+    external: true
+  mailgun-noreply-password:
+    external: true

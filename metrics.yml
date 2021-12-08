@@ -104,7 +104,7 @@ services:
           memory: 25M
           cpus: '0.1'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       NODES: 1
       NETWORKS: 1

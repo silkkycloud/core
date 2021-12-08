@@ -96,12 +96,12 @@ services:
         constraints:
           - "node.role == manager"
       resources:
-        reservations:
-          memory: 5M
-          cpus: '0.05'
         limits:
           memory: 25M
           cpus: '0.1'
+        reservations:
+          memory: 5M
+          cpus: '0.05'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:

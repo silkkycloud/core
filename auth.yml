@@ -63,10 +63,14 @@ services:
     secrets:
       - source: authentik-secret-key
         target: secret.key
+        uid: "1000"
+        gid: "1000"
         mode: 0600
       # Mailer credentials
       - source: mailgun-noreply-password
         target: mailer-password.key
+        uid: "1000"
+        gid: "1000"
         mode: 0600
 
 #  authentik_proxy:

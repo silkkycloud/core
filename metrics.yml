@@ -59,7 +59,7 @@ services:
           memory: 1G
         reservations:
           cpus: '0.2'
-          memory: 256M;
+          memory: 256M
       labels:
         - "traefik.enable=true"
         # Router

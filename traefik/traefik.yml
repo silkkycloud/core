@@ -1,6 +1,10 @@
 api:
   dashboard: true
 
+metrics:
+  prometheus:
+    entryPoint: metrics
+
 providers:
   docker:
     network: public
@@ -27,3 +31,6 @@ entryPoints:
     http:
       middlewares:
         - secureHeaders@file
+
+  metrics:
+    address: :8082

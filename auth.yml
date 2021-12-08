@@ -146,6 +146,7 @@ networks:
 
 volumes:
   authentik_media:
+  redis_database:
 
 secrets:
   authentik-secret-key:

@@ -43,6 +43,7 @@ services:
       - AUTHENTIK_POSTGRESQL__PORT=26257
       - AUTHENTIK_POSTGRESQL__NAME=authentik
       - AUTHENTIK_POSTGRESQL__USER=authentik
+      - AUTHENTIK_POSTGRESQL__PASSWORD=""
       # Redis
       - AUTHENTIK_REDIS__HOST=redis
       # Mailer

@@ -37,13 +37,13 @@ services:
         # Traefik
         - "traefik.enable=true"
         # Router
-        - "traefik.http.routers.traefik.rule=Host(`traefik.admin.silkky.cloud`)"
-        - "traefik.http.routers.traefik.entrypoints=websecure"
-        - "traefik.http.routers.traefik.tls=true"
-        - "traefik.http.routers.traefik.middlewares=authentik-auth@docker"
-        - "traefik.http.routers.traefik.service=traefik-service"
+        - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.admin.silkky.cloud`)"
+        - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+        - "traefik.http.routers.traefik-dashboard.tls=true"
+        - "traefik.http.routers.traefik-dashboard.middlewares=authentik-auth@docker"
+        - "traefik.http.routers.traefik-dashboard.service=traefik-dashboard-service"
         # Service
-        - "traefik.http.services.traefik-service.loadbalancer.server.port=8080"
+        - "traefik.http.services.traefik-dashboard-service.loadbalancer.server.port=8080"
     configs:
       - source: traefik-static
         target: /etc/traefik/traefik.yml

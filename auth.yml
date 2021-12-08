@@ -1,3 +1,43 @@
 version: '3.8'
 
 services:
+
+  oauth2_proxy:
+    image: ghcr.io/silkkycloud/oauth2-proxy:7.2.0
+    hostname: oauth2-proxy
+    networks:
+      - public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - "node.hostname == main-1"
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+        reservations:
+          cpus: '0.1'
+          memory: 100M
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.oauth2-proxy.rule=Host(`admin.silkky.cloud`)"
+        - "traefik.http.routers.oauth2-proxy.entrypoints=websecure"
+        - "traefik.http.routers.oauth2-proxy.tls=true"
+        - "traefik.http.routers.oauth2-proxy.service=oauth2-proxy-service"
+        # Service
+        - "traefik.http.services.oauth2-proxy-service.loadbalancer.server.port=4180"
+        # Authentication middleware
+        - "traefik.http.middlewares.oauth-auth.forwardauth.address=https://admin.silkky.cloud/oauth2/auth"
+        - "traefik.http.middlewares.oauth-auth.forwardauth.trustForwardHeader=true"
+        - "traefik.http.middlewares.oauth-auth.errors.status=401-403"
+        - "traefik.http.middlewares.oauth-auth.errors.service=oauth2-proxy-service"
+        - "traefik.http.middlewares.oauth-auth.errors.query=/oauth2/sign_in"
+    env_file:
+      - ./oauth2-proxy/oauth2-proxy.env
+
+networks:
+  public:
+    external: true

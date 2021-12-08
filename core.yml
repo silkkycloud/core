@@ -62,10 +62,6 @@ services:
         target: piped.crt
         uid: "1000"
         gid: "1000"
-      - source: admin-cloudflare-origin-crt
-        target: admin.crt
-        uid: "1000"
-        gid: "1000"
       # Origin keys
       - source: cloudflare-origin-key
         target: origin.key
@@ -74,11 +70,6 @@ services:
         mode: 0600
       - source: piped-cloudflare-origin-key
         target: piped.key
-        uid: "1000"
-        gid: "1000"
-        mode: 0600
-      - source: admin-cloudflare-origin-key
-        target: admin.key
         uid: "1000"
         gid: "1000"
         mode: 0600

@@ -134,6 +134,12 @@ services:
 networks:
   public: 
     external: true
+  # Create:
+  # docker network create \
+  #   --driver overlay \
+  #   --opt com.docker.network.driver.mtu=1450 \
+  #   --opt encrypted=true \
+  #   metrics_net
   metrics_net:
     external: true
   socat_net:

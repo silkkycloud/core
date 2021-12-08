@@ -10,6 +10,7 @@ ARG TRAEFIK_VERSION
 RUN apk add --no-cache \
     ca-certificates \
     tzdata \
+    tar \
     tini
 
 ADD https://github.com/traefik/traefik/releases/download/v${TRAEFIK_VERSION}/traefik_v${TRAEFIK_VERSION}_linux_amd64.tar.gz /tmp/traefik.tar.gz

@@ -47,8 +47,12 @@ services:
     configs:
       - source: traefik-static
         target: /etc/traefik/traefik.yml
+        uid: "1000"
+        gid: "1000"
       - source: traefik-dynamic
         target: /etc/traefik/dynamic.yml
+        uid: "1000"
+        gid: "1000"
     secrets:
       # Origin certificates
       - source: cloudflare-origin-crt

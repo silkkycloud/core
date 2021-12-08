@@ -1,0 +1,36 @@
+api:
+  dashboard: true
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+
+providers:
+  docker:
+    network: public
+    endpoint: "tcp://tasks.dockersocat:2375"
+    swarmMode: true
+    exposedByDefault: false
+  file:
+    filename: /etc/traefik/dynamic.yml
+
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: :443
+    proxyProtocol:
+      trustedIPs:
+        - "10.0.0.2/24"
+    http:
+      middlewares:
+        - secureHeaders@file
+
+  metrics:
+    address: :8082

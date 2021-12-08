@@ -22,9 +22,19 @@ services:
         reservations:
           cpus: '0.2'
           memory: 256M
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.grafana.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/grafana/`)"
+        - "traefik.http.routers.grafana.entrypoints=websecure"
+        - "traefik.http.routers.grafana.tls=true"
+        - "traefik.http.routers.grafana.middlewares=authentik-auth@docker"
+        - "traefik.http.routers.grafana.service=grafana-service"
+        # Service
+        - "traefik.http.services.grafana-service.loadbalancer.server.port=3000"
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./Grafana:/etc/grafana
+      - ./grafana:/etc/grafana
 
   prometheus:
     image: quay.io/prometheus/prometheus:v2.31.1
@@ -51,25 +61,31 @@ services:
         reservations:
           cpus: '0.2'
           memory: 256M
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.prometheus.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/prometheus/`)"
+        - "traefik.http.routers.prometheus.entrypoints=websecure"
+        - "traefik.http.routers.prometheus.tls=true"
+        - "traefik.http.routers.prometheus.middlewares=authentik-auth@docker"
+        - "traefik.http.routers.prometheus.service=prometheus-service"
+        # Service
+        - "traefik.http.services.prometheus-service.loadbalancer.server.port=9090"
     volumes:
       - prometheus_data:/prometheus
-      - ./Prometheus:/etc/prometheus
+      - ./prometheus:/etc/prometheus
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
     command:
-      - '--path.procfs=/host/proc'       
-      - '--path.sysfs=/host/sys'       
-      - '--path.rootfs=/host'   
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/host
     hostname: node-exporter
     networks:
       - metrics_net
     deploy:
       mode: global
-      labels:
-        prometheus-job: node-exporter
-        prometheus-port: 9100
-        prometheus-path: /metrics
       placement:
         constraints:
           - "node.platform.os == linux"
@@ -80,6 +96,10 @@ services:
         reservations:
           cpus: '0.2'
           memory: 50M
+      labels:
+        - "prometheus-job=node-exporter"
+        - "prometheus-port=9100"
+        - "prometheus-path=/metrics"
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro       
@@ -104,17 +124,22 @@ services:
           memory: 25M
           cpus: '0.1'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      NODES: 1
-      NETWORKS: 1
-      SERVICES: 1
-      TASKS: 1
+      - NODES=1
+      - NETWORKS=1
+      - SERVICES=1
+      - TASKS=1
 
 networks:
   public: 
     external: true
-
+  # Create:
+  # docker network create \
+  #   --driver overlay \
+  #   --opt com.docker.network.driver.mtu=1450 \
+  #   --opt encrypted=true \
+  #   metrics_net
   metrics_net:
     external: true
   socat_net:

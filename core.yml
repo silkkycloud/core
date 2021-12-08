@@ -40,7 +40,7 @@ services:
         - "traefik.http.routers.traefik.rule=Host(`traefik.admin.silkky.cloud`)"
         - "traefik.http.routers.traefik.entrypoints=websecure"
         - "traefik.http.routers.traefik.tls=true"
-        - "traefik.http.routers.traefik.middleware=authentik-auth@docker"
+        - "traefik.http.routers.traefik.middlewares=authentik-auth@docker"
         - "traefik.http.routers.traefik.service=traefik-service"
         # Service
         - "traefik.http.services.traefik-service.loadbalancer.server.port=8080"

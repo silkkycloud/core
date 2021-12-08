@@ -29,7 +29,7 @@ services:
         - "traefik.http.routers.portainer.rule=Host(`portainer.admin.silkky.cloud`)"
         - "traefik.http.routers.portainer.entrypoints=websecure"
         - "traefik.http.routers.portainer.tls=true"
-        - "traefik.http.routers.portainer.middleware=authentik-auth@docker"
+        - "traefik.http.routers.portainer.middlewares=authentik-auth@docker"
         - "traefik.http.routers.portainer.service=portainer-service"
         # Service
         - "traefik.http.services.portainer-service.loadbalancer.server.port=9000"

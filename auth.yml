@@ -31,6 +31,7 @@ services:
         # Router
         - "traefik.http.routers.authentik.rule=Host(`admin.silkky.cloud`)"
         - "traefik.http.routers.authentik.entrypoints=websecure"
+        - "traefik.http.routers.authentik.tls=true"
         - "traefik.http.routers.authentik.middlewares=authentik-headers"
         - "traefik.http.routers.authentik.service=authentik-service"
         # Service
@@ -92,6 +93,7 @@ services:
 #        # Router
 #        - "traefik.http.routers.authentik-proxy.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/akprox/`)"
 #        - "traefik.http.routers.authentik-proxy.entrypoints=websecure"
+#        - "traefik.http.routers.authentik-proxy.tls=true"
 #        - "traefik.http.routers.authentik-proxy.service=authentik-proxy-service"
 #        # Service
 #        - "traefik.http.services.authentik-proxy-service.loadbalancer.server.port=9000"

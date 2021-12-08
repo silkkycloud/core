@@ -27,9 +27,20 @@ services:
         parallelism: 1
         failure_action: rollback
       labels:
-        - prometheus-job=traefik
-        - prometheus-port=8082
-        - prometheus-path=/metrics
+        # Prometheus
+        - "prometheus-job=traefik"
+        - "prometheus-port=8082"
+        - "prometheus-path=/metrics"
+        # Traefik
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.traefik.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/traefik/`)"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.tls=true"
+        - "traefik.http.routers.traefik.middleware=authentik-proxy@docker"
+        - "traefik.http.routers.traefik.service=traefik-service"
+        # Service
+        - "traefik.http.services.traefik-service.loadbalancer.server.port=8080"
     configs:
       - source: traefik-static
         target: /etc/traefik/traefik.yml

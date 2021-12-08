@@ -113,8 +113,6 @@ services:
     hostname: postgresql
     networks:
       - backend
-    env_file:
-      - .env
     deploy:
       mode: replicated
       replicas: 1
@@ -131,10 +129,8 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
-    environment:
-      - POSTGRES_DB=authentik
-      - POSTGRES_USER=authentik
-      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
+    env_file:
+      - auth.env
 
   redis:
     image: redis:6.2.6-alpine

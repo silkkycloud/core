@@ -22,6 +22,15 @@ services:
         reservations:
           cpus: '0.2'
           memory: 256M
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.grafana.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/grafana/`)"
+        - "traefik.http.routers.grafana.entrypoints=websecure"
+        - "traefik.http.routers.grafana.middleware=authentik-proxy@docker"
+        - "traefik.http.routers.grafana.service=grafana-service"
+        # Service
+        - "traefik.http.services.portainer-service.loadbalancer.server.port=3000"
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana:/etc/grafana
@@ -50,7 +59,16 @@ services:
           memory: 1G
         reservations:
           cpus: '0.2'
-          memory: 256M
+          memory: 256M;
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.prometheus.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/prometheus/`)"
+        - "traefik.http.routers.prometheus.entrypoints=websecure"
+        - "traefik.http.routers.prometheus.middleware=authentik-proxy@docker"
+        - "traefik.http.routers.prometheus.service=prometheus-service"
+        # Service
+        - "traefik.http.services.prometheus-service.loadbalancer.server.port=9090"
     volumes:
       - prometheus_data:/prometheus
       - ./prometheus:/etc/prometheus
@@ -106,10 +124,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      NODES: 1
-      NETWORKS: 1
-      SERVICES: 1
-      TASKS: 1
+      - NODES=1
+      - NETWORKS=1
+      - SERVICES=1
+      - TASKS=1
 
 networks:
   public: 

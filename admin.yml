@@ -23,6 +23,15 @@ services:
         reservations:
           cpus: '0.2'
           memory: 256M
+      labels:
+        - "traefik.enable=true"
+        # Router
+        - "traefik.http.routers.portainer.rule=Host(`portainer.silkky.cloud`)"
+        - "traefik.http.routers.portainer.entrypoints=websecure"
+        - "traefik.http.routers.portainer.middleware=authentik-proxy@docker"
+        - "traefik.http.routers.portainer.service=portainer-service"
+        # Service
+        - "traefik.http.services.portainer-service.loadbalancer.server.port=9000"
     volumes:
       - portainer_data:/data
 

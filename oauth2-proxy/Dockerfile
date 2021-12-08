@@ -12,10 +12,11 @@ RUN apk add --no-cache \
     tar \
     tini
 
-ADD https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v${OAUTH2_PROXY_VERSION}/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz /tmp/oauth2-proxy.tar.gz
-RUN tar xvfz /tmp/oauth2-proxy.tar.gz -C /usr/local/bin oauth2-proxy; \
-    rm -rf /tmp/oauth2-proxy.tar.gz; \
-    chmod +x /usr/local/bin/oauth2-proxy \
+ADD https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v${OAUTH2_PROXY_VERSION}/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz
+RUN tar xvfz /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz -C /tmp \
+    && cp -r /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64/oauth2-proxy
+    && rm -rf /tmp/oauth2-proxy-v${OAUTH2_PROXY_VERSION}.linux-amd64.tar.gz \
+    && chmod +x /usr/local/bin/oauth2-proxy
 
 # Add an unprivileged user and set directory permissions
 RUN adduser --disabled-password --gecos "" --no-create-home oauth2-proxy \

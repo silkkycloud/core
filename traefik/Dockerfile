@@ -32,7 +32,8 @@ RUN adduser --disabled-password --gecos "" --no-create-home traefik \
 USER traefik
 
 ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
-    
+
+# NET_BIND_SERVICE permissions are required for this container
 EXPOSE 80
 EXPOSE 443
 

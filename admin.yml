@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   portainer:
-    image: portainer/portainer-ce:2.9.3-alpine
+    image: portainer/portainer-ce:2.11.0-alpine
     hostname: portainer
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     networks:
@@ -37,7 +37,7 @@ services:
       - portainer_data:/data
 
   agent:
-    image: portainer/agent:2.9.3-alpine
+    image: portainer/agent:2.11.0-alpine
     networks:
       - agent_net
     deploy:

@@ -14,7 +14,7 @@ access_control:
       policy: two_factor
       subject:
         - "group:admin"
-    - domain: "admin.silkky.cloud"
+    - domain: ["admin.silkky.cloud", "cockroach.silkky.cloud"]
       policy: two_factor
       subject:
         - "user:silkky"

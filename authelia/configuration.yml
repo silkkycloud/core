@@ -13,7 +13,11 @@ access_control:
     - domain: ["portainer.silkky.cloud", "traefik.silkky.cloud"]
       policy: two_factor
       subject:
-        - "group:admin"
+        - "group:admin"'
+    - domain: "admin.silkky.cloud"
+      policy: two_factor
+      subject:
+        - "user:silkky"
 
 notifier:
   smtp:

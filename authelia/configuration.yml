@@ -21,20 +21,13 @@ regulation:
   ban_time: 15m
 
 storage:
-  postgres:
-    host: cockroach-lb
-    port: 26257
-    database: authelia
-    username: authelia
-    password: ""
+  local:
+    path: /config/db.sqlite3
 
 session:
   redis:
     host: redis
     port: 6379
-
-totp:
-  issuer: auth.silkky.cloud
 
 authentication_backend:
   file:

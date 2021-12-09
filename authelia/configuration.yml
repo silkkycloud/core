@@ -1,0 +1,42 @@
+theme: dark
+
+log:
+  level: info
+
+server:
+  host: 0.0.0.0
+  port: 9091
+
+notifier:
+  smtp:
+    host: smtp.eu.mailgun.org
+    port: 587
+    username: noreply@robot.silkky.cloud
+    sender: "Authelia <noreply@rebot.silkky.cloud>"
+    subject: "[Authelia] {title}"
+
+regulation:
+  max_retries: 3
+  find_time: 5m
+  ban_time: 15m
+
+storage:
+  postgres:
+    host: cockroach-lb
+    port: 26257
+    database: authelia
+    username: authelia
+
+session:
+  redis:
+    host: redis
+    port: 6379
+
+totp:
+  issuer: auth.silkky.cloud
+
+authentication_backend:
+  file:
+    path: /config/users.yml
+    password:
+      algorithm: argon2id

@@ -73,9 +73,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./oauth2-proxy/Dockerfile
+          file: ./forward-auth/Dockerfile
           push: true
-          tags: ghcr.io/silkkycloud/oauth2-proxy:latest,ghcr.io/silkkycloud/oauth2-proxy:7.2.0
+          tags: ghcr.io/silkkycloud/forward-auth:latest,ghcr.io/silkkycloud/forward-auth:7.2.0
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move Cache

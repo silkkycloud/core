@@ -2,10 +2,11 @@ version: '3.8'
 
 services:
 
-  oauth2_proxy:
-    image: quay.io/oauth2-proxy/oauth2-proxy:v7.2.0
-    hostname: oauth2-proxy
+  authelia:
+    image: authelia/authelia:4.33.1
+    hostname: authelia
     networks:
+      - backend
       - public
     deploy:
       mode: replicated
@@ -23,30 +24,74 @@ services:
       labels:
         - "traefik.enable=true"
         # Router
-        - "traefik.http.routers.oauth2-proxy.rule=Host(`admin.silkky.cloud`)"
-        - "traefik.http.routers.oauth2-proxy.entrypoints=websecure"
-        - "traefik.http.routers.oauth2-proxy.tls=true"
-        - "traefik.http.routers.oauth2-proxy.service=oauth2-proxy-service"
+        - "traefik.http.routers.authelia.rule=Host(`auth.silkky.cloud`)"
+        - "traefik.http.routers.authelia.entrypoints=websecure"
+        - "traefik.http.routers.authelia.tls=true"
+        - "traefik.http.routers.authelia.service=authelia-service"
         # Service
-        - "traefik.http.services.oauth2-proxy-service.loadbalancer.server.port=4180"
-        # Authentication verify
-        - "traefik.http.middlewares.oauth-verify.forwardauth.address=http://oauth2-proxy:4180/oauth2/auth"
-        - "traefik.http.middlewares.oauth-verify.forwardauth.trustForwardHeader=true"
-        - "traefik.http.middlewares.oauth-verify.forwardAuth.authResponseHeaders=X-Auth-Request-User,X-Auth-Request-Email,Set-Cookie"
-        # Authentication sign-in
-        - "traefik.http.middlewares.oauth-signin.errors.service=oauth2-proxy-service"
-        - "traefik.http.middlewares.oauth-signin.errors.status=401"
-        - "traefik.http.middlewares.oauth-signin.errors.query=/oauth2/sign_in"
-    configs:
-      - source: oauth2-emails
-        target: /etc/oauth2-proxy/emails.txt
-    env_file:
-      - ./oauth2-proxy/oauth2-proxy.env
+        - "traefik.http.services.authelia-service.loadbalancer.server.port=9091"
+        # Authentication middleware
+        - "traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://auth.silkky.cloud"
+        - "traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true"
+        - "traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email"
+    volumes:
+      - ./authelia:/config
+    secrets:
+      # JWT secret key
+      - source: authelia-jwt
+        target: jwt.key
+        mode: 0600
+      # Storage encryption key
+      - source: authelia-encryption-key
+        target: storage.key
+        mode: 0600
+      # Mailer password
+      - source: mailgun-noreply-password
+        target: mail-password.key
+        mode: 0600
+    environment:
+      - AUTHELIA_JWT_SECRET_FILE=/run/secrets/jwt.key
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/run/secrets/storage.key
+      - AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE=/run/secrets/mail-password.key
+
+  redis:
+    image: redis:6.2.6-alpine
+    hostname: redis
+    networks:
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - "node.hostname == main-1"
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
+    volumes:
+      - redis_database:/data
 
 networks:
   public:
     external: true
+  backend:
+    driver: overlay
+    internal: true
+    driver_opts:
+      encrypted: "true"
+      com.docker.network.driver.mtu: 1450
 
-configs:
-  oauth2-emails:
-    file: ./oauth2-proxy/emails.txt
+volumes:
+  redis_database:
+
+secrets:
+  authelia-jwt:
+    external: true
+  authelia-encryption-key:
+    external: true
+  mailgun-noreply-password:
+    external: true

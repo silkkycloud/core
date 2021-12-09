@@ -40,7 +40,7 @@ services:
         - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.silkky.cloud`)"
         - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
         - "traefik.http.routers.traefik-dashboard.tls=true"
-        - "traefik.http.routers.traefik-dashboard.middlewares=oauth-signin@docker,oauth-verify@docker"
+        - "traefik.http.routers.traefik-dashboard.middlewares=authelia@docker"
         - "traefik.http.routers.traefik-dashboard.service=api@internal"
         # Dummy service for Swarm port detection. The port can be any valid integer value.
         - "traefik.http.services.dummy-svc.loadbalancer.server.port=9999"

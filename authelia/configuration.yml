@@ -26,6 +26,7 @@ storage:
     port: 26257
     database: authelia
     username: authelia
+    password: ""
 
 session:
   redis:

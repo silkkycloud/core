@@ -29,6 +29,3 @@ tls:
     # Piped
     - certFile: /run/secrets/piped.crt
       keyFile: /run/secrets/piped.key
-    # Admin
-    - certFile: /run/secrets/admin.crt
-      keyFile: /run/secrets/admin.key

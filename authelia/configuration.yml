@@ -22,15 +22,17 @@ regulation:
 
 storage:
   local:
-    path: /config/db.sqlite3
+    path: /data/db.sqlite3
 
 session:
+  domain: silkky.cloud
+  expiration: 4h
   redis:
     host: redis
     port: 6379
 
 authentication_backend:
   file:
-    path: /config/users.yml
+    path: /data/users.yml
     password:
       algorithm: argon2id

@@ -35,7 +35,11 @@ services:
         - "traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true"
         - "traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email"
     volumes:
-      - ./authelia:/config
+      - ./authelia-data:/data
+    configs:
+      # Authelia config
+      - source: authelia-config
+        target: /config/configuration.yml
     secrets:
       # JWT secret key
       - source: authelia-jwt
@@ -45,6 +49,10 @@ services:
       - source: authelia-encryption-key
         target: storage.key
         mode: 0600
+      # Session secret
+      - source: authelia-session-key
+        target: session.key
+        mode: 0600
       # Mailer password
       - source: mailgun-noreply-password
         target: mail-password.key
@@ -52,6 +60,7 @@ services:
     environment:
       - AUTHELIA_JWT_SECRET_FILE=/run/secrets/jwt.key
       - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/run/secrets/storage.key
+      - AUTHELIA_SESSION_SECRET_FILE=/run/secrets/session.key
       - AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE=/run/secrets/mail-password.key
 
   redis:
@@ -88,10 +97,16 @@ networks:
 volumes:
   redis_database:
 
+configs:
+  authelia-config:
+    file: ./authelia/configuration.yml
+
 secrets:
   authelia-jwt:
     external: true
   authelia-encryption-key:
+    external: true
+  authelia-session-key:
     external: true
   mailgun-noreply-password:
     external: true

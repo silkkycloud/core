@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   oauth2_proxy:
-    image: ghcr.io/silkkycloud/oauth2-proxy:7.2.0
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.2.0
     hostname: oauth2-proxy
     networks:
       - public

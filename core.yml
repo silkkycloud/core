@@ -140,6 +140,3 @@ secrets:
     external: true
   admin-cloudflare-origin-key:
     external: true
-  # CockroachDB CA certificate
-  cockroach-ca-crt:
-    external: true

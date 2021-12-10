@@ -17,7 +17,7 @@ scrape_configs:
       - source_labels: [__meta_dockerswarm_node_hostname]
         target_label: instance
       # Only keep manager nodes
-      - source_labels: [__meta_dockerswarm_role]
+      - source_labels: [__meta_dockerswarm_node_role]
         regex: manager
         action: keep
 

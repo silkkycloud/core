@@ -18,6 +18,17 @@ http:
         # Block Google FLoC
         permissionsPolicy: "interest-cohort=()"
 
+
+  routers:
+    cockroachdb-admin:
+      rule: "Host(`cockroach.silkky.cloud`)"
+      entryPoints:
+        - websecure
+      tls: {}
+      middlewares:
+        - authelia@docker
+      service: cockroachdb-admin-service@file
+
   serversTransports:
     cockroachdb-admin:
       insecureSkipVerify: true

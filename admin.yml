@@ -15,7 +15,7 @@ services:
       placement:
         constraints:
           - "node.role == manager"
-          - "node.hostname == main-1"
+          - "node.hostname == main.web01.hel.hcloud.silkky.cloud"
       resources:
         limits:
           cpus: '1'

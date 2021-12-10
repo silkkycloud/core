@@ -13,7 +13,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.hostname == main-1"
+          - "node.hostname == main.web01.hel.hcloud.silkky.cloud"
       resources:
         limits:
           cpus: '0.5'
@@ -73,7 +73,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.hostname == main-1"
+          - "node.hostname == main.web01.hel.hcloud.silkky.cloud"
       resources:
         limits:
           cpus: '0.5'

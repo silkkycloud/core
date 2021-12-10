@@ -18,6 +18,11 @@ http:
         # Block Google FLoC
         permissionsPolicy: "interest-cohort=()"
 
+  serversTransports:
+    cockroach-admin:
+      rootCAs:
+        - /run/secrets/cockroach-ca.crt
+
 tls:
   options:
     default:

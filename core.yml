@@ -74,6 +74,11 @@ services:
         uid: "1000"
         gid: "1000"
         mode: 0600
+      # CockroachDB CA certificate
+      - source: cockroach-ca-crt
+        target: cockroach-ca.crt
+        uid: "1000"
+        gid: "1000"
 
   dockersocat:
     image: ghcr.io/tecnativa/docker-socket-proxy:0.1
@@ -139,4 +144,7 @@ secrets:
   piped-cloudflare-origin-key:
     external: true
   admin-cloudflare-origin-key:
+    external: true
+  # CockroachDB CA certificate
+  cockroach-ca-crt:
     external: true

@@ -28,5 +28,3 @@ tls:
     # Piped
     - certFile: /run/secrets/piped.crt
       keyFile: /run/secrets/piped.key
-    # CockroachDB CA certificate
-    - certFile: /run/secrets/cockroach-ca.crt

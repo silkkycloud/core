@@ -19,8 +19,15 @@ http:
         permissionsPolicy: "interest-cohort=()"
 
   serversTransports:
-    cockroach-admin:
+    cockroachdb-admin:
       insecureSkipVerify: true
+
+  services:
+    cockroachdb-admin-service:
+      loadBalancer:
+        servers:
+          - url: "https://cockroachdb-1:8080"
+        serversTransport: cockroachdb-admin@file
 
 tls:
   options:

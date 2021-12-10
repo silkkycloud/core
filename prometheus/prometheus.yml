@@ -10,12 +10,16 @@ scrape_configs:
         role: nodes
     relabel_configs:
       # Fetch metrics on port 9323.
-      - source_labels: [__meta_dockerswarm_node_manager_address]
+      - source_labels: [__meta_dockerswarm_node_address]
         target_label: __address__
         replacement: $1:9323
       # Set hostname as instance label
       - source_labels: [__meta_dockerswarm_node_hostname]
         target_label: instance
+      # Only keep manager nodes
+      - source_labels: [__meta_dockerswarm_role]
+        regex: manager
+        action: keep
 
   # Create a job for Docker Swarm containers.
   - job_name: 'dockerswarm'

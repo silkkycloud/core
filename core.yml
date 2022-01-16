@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   traefik:
-    image: ghcr.io/silkkycloud/traefik:2.5.4
+    image: ghcr.io/silkkycloud/traefik:2.5.6
     command: --configFile=/etc/traefik/traefik.yml
     cap_add:
       # Image runs rootless, This allows Docker to bind the privileged ports.
@@ -59,7 +59,7 @@ services:
         target: origin.crt
         uid: "1000"
         gid: "1000"
-      - source: piped-cloudflare-origin-crt
+      - source: piped-zerossl-crt
         target: piped.crt
         uid: "1000"
         gid: "1000"
@@ -69,7 +69,7 @@ services:
         uid: "1000"
         gid: "1000"
         mode: 0600
-      - source: piped-cloudflare-origin-key
+      - source: piped-zerossl-key
         target: piped.key
         uid: "1000"
         gid: "1000"
@@ -126,17 +126,13 @@ configs:
     file: ./traefik/dynamic.yml
 
 secrets:
-  # Origin certificates
+  # Certificates
   cloudflare-origin-crt:
     external: true
-  piped-cloudflare-origin-crt:
+  piped-zerossl-crt:
     external: true
-  admin-cloudflare-origin-crt:
-    external: true
-  # Origin keys
+  # Private Keys
   cloudflare-origin-key:
     external: true
-  piped-cloudflare-origin-key:
-    external: true
-  admin-cloudflare-origin-key:
+  piped-zerossl-key:
     external: true

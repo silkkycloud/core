@@ -11,8 +11,6 @@ http:
         browserXssFilter: true
         # X-Content-Type-Options
         contentTypeNosniff: true
-        # X-Frame-Options
-        frameDeny: true
         # Referrer-Policy
         referrerPolicy: "strict-origin-when-cross-origin"
         # Block Google FLoC

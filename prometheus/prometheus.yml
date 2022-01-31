@@ -2,6 +2,7 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
+
 scrape_configs:
   # Create a job for Docker daemons.
   - job_name: 'docker'
@@ -23,6 +24,8 @@ scrape_configs:
 
   # Create a job for Docker Swarm containers.
   - job_name: 'dockerswarm'
+    tls_config:
+      insecure_skip_verify: true
     dockerswarm_sd_configs:
       - host: tcp://tasks.dockersocat:2375
         role: tasks

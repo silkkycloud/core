@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   grafana:
-    image: grafana/grafana:8.3.0
+    image: grafana/grafana:8.3.4
     hostname: grafana
     networks:
       - metrics_net
@@ -37,7 +37,7 @@ services:
       - ./grafana:/etc/grafana
 
   prometheus:
-    image: quay.io/prometheus/prometheus:v2.31.1
+    image: quay.io/prometheus/prometheus:v2.33.1
     command: 
       - --web.enable-lifecycle 
       - --web.external-url=/prometheus/ 
@@ -76,7 +76,7 @@ services:
       - ./prometheus:/etc/prometheus
 
   node_exporter:
-    image: quay.io/prometheus/node-exporter:latest
+    image: quay.io/prometheus/node-exporter:v1.3.1
     command:
       - --path.procfs=/host/proc
       - --path.sysfs=/host/sys

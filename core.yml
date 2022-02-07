@@ -59,7 +59,7 @@ services:
         target: origin.crt
         uid: "1000"
         gid: "1000"
-      - source: piped-zerossl-bundle
+      - source: piped-zerossl-ca-bundle
         target: piped.crt
         uid: "1000"
         gid: "1000"
@@ -129,7 +129,7 @@ secrets:
   # Certificates
   cloudflare-origin-crt:
     external: true
-  piped-zerossl-bundle:
+  piped-zerossl-ca-bundle:
     external: true
   # Private Keys
   cloudflare-origin-key:

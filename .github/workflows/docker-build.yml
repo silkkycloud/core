@@ -38,7 +38,7 @@ jobs:
           context: .
           file: ./traefik/Dockerfile
           push: true
-          tags: ghcr.io/silkkycloud/traefik:latest,ghcr.io/silkkycloud/traefik:2.6.0
+          tags: ghcr.io/silkkycloud/traefik:latest,ghcr.io/silkkycloud/traefik:2.6.1
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move Cache

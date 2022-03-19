@@ -9,15 +9,18 @@ server:
 
 access_control:
   default_policy: deny
+  networks:
+    - name: internal
+      networks:
+        - 10.0.1.0/24
+
   rules:
-    - domain: ["portainer.silkky.cloud", "traefik.silkky.cloud"]
+    - domain: ["portainer.silkky.cloud", "cockroach.silkky.cloud", "admin.silkky.cloud"]
       policy: two_factor
+      networks:
+        - internal
       subject:
         - "group:admin"
-    - domain: ["admin.silkky.cloud", "cockroach.silkky.cloud"]
-      policy: two_factor
-      subject:
-        - "user:silkky"
 
 notifier:
   smtp:
@@ -28,9 +31,9 @@ notifier:
     subject: "[Authelia] {title}"
 
 regulation:
-  max_retries: 3
+  max_retries: 2
   find_time: 5m
-  ban_time: 15m
+  ban_time: 1d
 
 storage:
   local:
@@ -38,12 +41,13 @@ storage:
 
 session:
   domain: silkky.cloud
-  expiration: 4h
+  expiration: 1h
   redis:
     host: redis
     port: 6379
 
 authentication_backend:
+  disable_reset_password: true
   file:
     path: /data/users.yml
     password:

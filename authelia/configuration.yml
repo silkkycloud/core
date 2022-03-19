@@ -9,18 +9,18 @@ server:
 
 access_control:
   default_policy: deny
-#  networks:
-#    - name: main.web
-#      networks:
-#        - 65.108.90.195
-#        - 65.108.95.18
-#        - 65.108.90.241
+  networks:
+    - name: main.web
+      networks:
+        - 65.108.90.195
+        - 65.108.95.18
+        - 65.108.90.241
 
   rules:
     - domain: ["portainer.silkky.cloud", "cockroach.silkky.cloud", "traefik.silkky.cloud", "admin.silkky.cloud"]
       policy: two_factor
-#      networks:
-#        - main.web
+      networks:
+        - main.web
       subject:
         - "group:admin"
 

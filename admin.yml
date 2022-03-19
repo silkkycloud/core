@@ -45,7 +45,6 @@ services:
       placement:
         constraints:
           - "node.platform.os == linux"
-          - "node.role == manager"
       resources:
         limits:
           cpus: '0.25'

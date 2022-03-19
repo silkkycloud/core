@@ -62,9 +62,7 @@ networks:
   agent_net:
     driver: overlay
     attachable: true
-    internal: true
     driver_opts:
-      encrypted: "true"
       com.docker.network.driver.mtu: 1450
 
 volumes:

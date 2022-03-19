@@ -10,15 +10,17 @@ server:
 access_control:
   default_policy: deny
   networks:
-    - name: internal
+    - name: main.web
       networks:
-        - 10.0.1.0/24
+        - 65.108.90.195
+        - 65.108.95.18
+        - 65.108.90.241
 
   rules:
     - domain: ["portainer.silkky.cloud", "cockroach.silkky.cloud", "admin.silkky.cloud"]
       policy: two_factor
       networks:
-        - internal
+        - main.web
       subject:
         - "group:admin"
 

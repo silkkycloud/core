@@ -17,7 +17,7 @@ access_control:
         - 65.108.90.241
 
   rules:
-    - domain: ["portainer.silkky.cloud", "cockroach.silkky.cloud", "admin.silkky.cloud"]
+    - domain: ["portainer.silkky.cloud", "cockroach.silkky.cloud", "traefik.silkky.cloud", "admin.silkky.cloud"]
       policy: two_factor
       networks:
         - main.web

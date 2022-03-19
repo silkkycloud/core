@@ -37,7 +37,7 @@ services:
         # Traefik
         - "traefik.enable=true"
         # Router
-        - "traefik.http.routers.traefik-dashboard.rule=Host(`admin.silkky.cloud`) && PathPrefix(`/traefik`)"
+        - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.silkky.cloud`)"
         - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
         - "traefik.http.routers.traefik-dashboard.tls=true"
         - "traefik.http.routers.traefik-dashboard.middlewares=authelia@docker"

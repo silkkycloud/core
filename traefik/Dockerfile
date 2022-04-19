@@ -13,6 +13,10 @@ RUN apk add --no-cache \
     tar \
     tini
 
+# Fix CVE-2022-28391
+RUN apk add --upgrade \
+    busybox
+
 ADD https://github.com/traefik/traefik/releases/download/v${TRAEFIK_VERSION}/traefik_v${TRAEFIK_VERSION}_linux_amd64.tar.gz /tmp/traefik.tar.gz
 RUN tar xvfz /tmp/traefik.tar.gz -C /usr/local/bin traefik; \
     rm -rf /tmp/traefik.tar.gz; \

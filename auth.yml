@@ -4,7 +4,7 @@ version: '3.8'
 services:
 
   authelia:
-    image: authelia/authelia:4.35.0
+    image: authelia/authelia:4.35.1
     hostname: authelia
     networks:
       - backend
